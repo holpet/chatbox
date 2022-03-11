@@ -1,0 +1,27 @@
+html, body {
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 100%;
+    background-color: #e4e4e4;
+}
+
+#title-img {
+    border-radius: 50%;;
+}
+
+.loading {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    width: 50em;
+    height: auto;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    overflow: auto;
+}
+
+.allChats {
+    padding: 15px;
+    /*border: 5px solid darkgray;*/
+}
