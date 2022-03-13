@@ -21,14 +21,14 @@ const start = () => {
 start();
 
 /* Connect to database */
-const db = monk('localhost/chatboxDB');
+const db = monk(process.env.MONGO_URI || 'localhost/chatboxDB');
 db.then(() => {
     console.log('Connected to the database.');
 });
 const Chats = db.get('chats'); // get a db collection
 
 
-/* Other */
+/* Additional middleware */
 app.use(cors()); //automatically adds cors headers to all incoming reqs - to prevent cross-origin error
 app.use(express.json());
 
@@ -65,9 +65,8 @@ app.get('/chats', (req, res) => {
 
 
 /* POST CALLS - limited (using IP addr) */
-app.post('/chats', rateLimiter(1, 10), (req, res) => {
-    const validChat = isValidChat(req.body);
-    if (validChat === 0) {
+app.post('/chats', rateLimiter(10, 10), (req, res) => {
+    if (isValidChat(req.body)) {
         // insert into db...
         console.log('Chat was validated. -> POST')
         const chat = {
@@ -88,9 +87,12 @@ app.post('/chats', rateLimiter(1, 10), (req, res) => {
         }
     }
     else {
-        res.status(validChat);
+        res.status(442);
         res.json({
-            message: 'Missing name and/or content!'
+            error: {
+                status: 442,
+                message: 'Missing name and/or content'
+            }
         });
     }
 });
@@ -99,9 +101,6 @@ app.post('/chats', rateLimiter(1, 10), (req, res) => {
 /* Helper functions */
 
 function isValidChat(chat) {
-    if (chat.name && chat.name.toString().trim() !== '' &&
-        chat.content && chat.content.toString().trim() !== '') return 0;
-    else if (chat.name && chat.name.toString().trim() !== '') return 441;
-    else if (chat.content && chat.content.toString().trim() !== '') return 442;
-    else return 443;
+    return chat.name && chat.name.toString().trim() !== '' &&
+        chat.content && chat.content.toString().trim() !== '';
 }

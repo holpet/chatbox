@@ -2,29 +2,36 @@ console.log('Client has been initialized...')
 const API_URL = 'http://localhost:5050/chats';
 
 const form = document.querySelector('form');
-const loading = document.querySelector('.loading');
 const allChats = document.querySelector('.allChats');
 const submitButton = document.getElementById('submitButton');
+const messageTextArea = document.getElementById('messageTextArea');
 
-loading.style.display = '';
-//form.style.display = 'none';
+blurAndLoad(true);
 listAllChats();
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    
+
     const formData = new FormData(form);
     const name = formData.get('name');
     const content = formData.get('message');
 
-    //form.style.display = 'none';
-    loading.style.display = '';
+    blurAndLoad(true);
 
     const chat = {
         name,
         content
     };
 
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+    }
+    else {
+        form.classList.remove('was-validated');
+        messageTextArea.value = '';
+    }
+
+    // Add chat into a database
     try {
         fetch(API_URL, {
             method: 'POST',
@@ -33,19 +40,17 @@ form.addEventListener('submit', (event) => {
                 'content-type': 'application/json'
             }
         })  .then(response => {
-                console.log('Res status:', response.status);
-
-                // error: too many requests
-                if (response.status === 429) {
-                    console.log("Res 429... settimeout...")
-                }
-                // error: missing name and/or message
-                else if (response.status === 442) {
-                    console.log('Res 442');
-                }
                 // status OK
-                else {
-                    form.reset();
+                if (response.status === response.ok) {
+                    console.log('Chat validated and sent.');
+                }
+                // error: too many requests
+                else if (response.status === 429) {
+                    countdownTooManyRequests(10);
+                }
+                // error missing name and/or message
+                else if (response.status === 442) {
+                    console.log("Missing name and/or content.");
                 }
                 return response.json();
         })
@@ -58,6 +63,7 @@ form.addEventListener('submit', (event) => {
         throw boomify(error);
     }
 });
+
 
 function listAllChats() {
     allChats.innerHTML = '';
@@ -74,12 +80,16 @@ function listAllChats() {
                 div1.className = 'list-group-item list-group-item-action';
                 const div2 = document.createElement('div');
                 div2.className = 'd-flex w-100 justify-content-between';
+                const icon = document.createElement('img');
+                icon.src = 'img/icon1.jpg';
+                icon.className = 'img-thumbnail rounded-circle h-25 d-inline-block p-1 float-start';
                 const header = document.createElement('h5');
                 header.className = 'mb-1';
                 header.textContent = chat.name;
                 const small = document.createElement('small');
-                //console.log(new Intl.DateTimeFormat('cs-cz').format(chat.created.toString()));
-                small.textContent = new Date(chat.created).toLocaleDateString('cs-CZ');
+                small.textContent = convertDate(new Date(chat.created));
+                //new Date(chat.created).toLocaleDateString('cs-CZ')
+                //div2.appendChild(icon);
                 div2.appendChild(header);
                 div2.appendChild(small);
                 const content = document.createElement('p');
@@ -95,15 +105,55 @@ function listAllChats() {
     catch (error) {
         throw boomify(error);
     }
-    loading.style.display = 'none';
-    form.style.display = '';
+    blurAndLoad(false);
 }
 
-/* HELPER FUNCTIONS */
-function convertDate(date) {
-    /*
-    var options = {year: 'numeric', month: 'numeric', day: 'numeric',
-    hour: 'numeric', minute: 'numeric'};
-    return new Intl.DateTimeFormat('cs-cz', options).format(date);
-    */ 
+/* Helper functions */
+
+function convertDate(dateThen) {
+    var dateNow = new Date();
+    var duration = dateNow.valueOf() - dateThen.valueOf(); // The unit is millisecond
+    var diff = parseInt(duration / 1000);
+    if (diff == 1) return diff + ' second ago';
+    else if (diff < 60) return diff + ' seconds ago';
+    diff = parseInt(diff / 60);
+    if (diff == 1) return diff + ' minute ago';
+    else if (diff < 60) return diff + ' minutes ago';
+    diff = parseInt(diff / 60);
+    if (diff == 1) return diff + ' hour ago';
+    else if (diff < 24) return diff + ' hours ago';
+    diff = parseInt(diff / 24);
+    if (diff == 1) return diff + ' day ago';
+    else if (diff < 30) return diff + ' days ago';
+    diff = parseInt(diff / 12);
+    if (diff == 1) return diff + ' month ago';
+    else if (diff < 6) return diff + ' months ago';
+    else return dateThen.toLocaleDateString('cs-CZ');
+}
+
+function blurAndLoad(isLoading) {
+    if (isLoading) {
+        $('#loading').show();
+        $('.container-fluid').addClass("blur");
+        $('.allChats').addClass("blur");
+    }
+    else {
+        $('#loading').hide();
+        $('.container-fluid').removeClass("blur");
+        $('.allChats').removeClass("blur");
+    }
+}
+
+function countdownTooManyRequests(seconds) {
+    countdownInterval = setInterval(() => {
+        if (seconds === 1) {
+            clearInterval(countdownInterval);
+            $('#submitButton').prop('disabled', false);
+            $('#submitButton').html('Send your chat');
+        }
+        else {
+            $('#submitButton').prop('disabled', true);
+            $('#submitButton').html('Please wait ' + seconds--);
+        }
+    }, 1000);
 }
