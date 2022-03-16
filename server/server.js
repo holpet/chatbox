@@ -65,7 +65,7 @@ app.get('/chats', (req, res) => {
 
 
 /* POST CALLS - limited (using IP addr) */
-app.post('/chats', rateLimiter(10, 10), (req, res) => {
+app.post('/chats', rateLimiter(1, 10), (req, res) => {
     if (isValidChat(req.body)) {
         // insert into db...
         console.log('Chat was validated. -> POST')

@@ -10,9 +10,9 @@ html, body {
     border-radius: 50%;
 }
 
-#icon {
-    width: 15px;
-    height: auto;
+.icon {
+    max-width: 250px;
+    max-height: 250px;
 }
 
 .loading {
@@ -28,27 +28,43 @@ html, body {
 
 #submitButton {
     border-radius: 25px;
-    background-color: #8b8b8b;
-    border: 1px solid #807d7d;
+    background-color: #6398e9;
+    border: 3px solid #4e7fcb;
+    font-size: large;
 }
 
 #submitButton:hover {
-    background-color: #686868;
+    background-color: #4e7fcb;
+    border: 3px solid #9ec4ff;
 }
 
 #submitButton[disabled] {
-    background-color: #b81e1e;
-    border: 1px solid #771818;
+    background-color: #ad1f57;
+    border: 3px solid #8d1344;
 }
 
+/*
 .form-control:focus {
     border-color: #d4862c;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(224, 137, 6, 0.979);
-  }
+  }*/
 
 .blur {
     -webkit-filter: blur(5px);
     filter: blur(5px);
+}
+
+.blue-highlight {
+    color: #6398e9;
+}
+
+.card-border {
+    border-color: #c9c9c9;
+}
+
+.spaced-title {
+    letter-spacing: 8px;
+    font-weight: 20;
 }
 
 .allChats {

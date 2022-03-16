@@ -72,32 +72,60 @@ function listAllChats() {
         .then(res => res.json())
         .then(chats => {
             const div = document.createElement('div');
-            div.className = 'list-group';
-            
+            firstElem = true;
             chats.reverse();
             chats.forEach(chat => {
-                const div1 = document.createElement('div');
-                div1.className = 'list-group-item list-group-item-action';
-                const div2 = document.createElement('div');
-                div2.className = 'd-flex w-100 justify-content-between';
+                // create divs
+                const divCard = document.createElement('div');
+                if (firstElem) {
+                    divCard.className = 'card card-border';
+                    firstElem = false;
+                }
+                else divCard.className = 'card border-top-0 card-border';
+                const divRow = document.createElement('div');
+                divRow.className = 'row g-0';
+                const divCol1 = document.createElement('div');
+                divCol1.className = 'col-2 mx-auto';
+                const divCol2 = document.createElement('div');
+                divCol2.className = 'col-10';
+                const divCardBody = document.createElement('div');
+                divCardBody.className = 'card-body pr-3 pl-1';
+                const divCardBodySpec = document.createElement('div');
+                divCardBodySpec.className = 'd-flex w-100 justify-content-between';
+                
+                // create img
                 const icon = document.createElement('img');
-                icon.src = 'img/icon1.jpg';
-                icon.className = 'img-thumbnail rounded-circle h-25 d-inline-block p-1 float-start';
+                icon.src = 'img/catbox_favicon_bigger.png';
+                icon.className = 'img-fluid rounded-circle m-2 p-1';
+                icon.alt = 'User icon image';
+                
+                // create name & date
                 const header = document.createElement('h5');
-                header.className = 'mb-1';
+                header.className = 'card-title';
                 header.textContent = chat.name;
                 const small = document.createElement('small');
+                small.className = 'text-muted';
                 small.textContent = convertDate(new Date(chat.created));
-                //new Date(chat.created).toLocaleDateString('cs-CZ')
-                //div2.appendChild(icon);
-                div2.appendChild(header);
-                div2.appendChild(small);
+                
+                // create message
                 const content = document.createElement('p');
-                content.className = 'mb-1';
+                content.className = 'card-text';
                 content.textContent = chat.content;
-                div1.appendChild(div2);
-                div1.appendChild(content);
-                div.appendChild(div1);
+
+                // append divs with content
+                divCol1.appendChild(icon);
+                
+                divCardBodySpec.appendChild(header);
+                divCardBodySpec.appendChild(small);
+                divCardBody.appendChild(divCardBodySpec);
+                divCardBody.appendChild(content);
+                divCol2.appendChild(divCardBody);
+
+                divRow.appendChild(divCol1);
+                divRow.appendChild(divCol2);
+
+                divCard.appendChild(divRow);
+                div.appendChild(divCard);
             });
             allChats.appendChild(div);
         });
