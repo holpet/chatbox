@@ -77,11 +77,11 @@ function listAllChats() {
             chats.forEach(chat => {
                 // create divs
                 const divCard = document.createElement('div');
+                divCard.className = 'card card-border border-top-0 action-highlight';
                 if (firstElem) {
-                    divCard.className = 'card card-border';
+                    divCard.classList.remove('border-top-0');
                     firstElem = false;
                 }
-                else divCard.className = 'card border-top-0 card-border';
                 const divRow = document.createElement('div');
                 divRow.className = 'row g-0';
                 const divCol1 = document.createElement('div');
@@ -91,7 +91,7 @@ function listAllChats() {
                 const divCardBody = document.createElement('div');
                 divCardBody.className = 'card-body pr-3 pl-1';
                 const divCardBodySpec = document.createElement('div');
-                divCardBodySpec.className = 'd-flex w-100 justify-content-between';
+                divCardBodySpec.className = 'd-flex w-100 justify-content-between align-items-center';
                 
                 // create img
                 const icon = document.createElement('img');

@@ -54,8 +54,12 @@ html, body {
     filter: blur(5px);
 }
 
-.blue-highlight {
+.blue-box {
     color: #6398e9;
+}
+
+.action-highlight:hover {
+    background-color: #f9f9f9;
 }
 
 .card-border {
