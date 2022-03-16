@@ -1,17 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const monk = require('monk');
+require('dotenv').config(); //{path: '../.env'}
 const Filter = require('bad-words');
 const rateLimit = require('express-rate-limit');
 
-const PORT = 5050;
 const app = express();
 
 /* Start server */
 const start = () => {
     try {
-        app.listen(PORT, () => {
-            console.log('Running server at localhost:', PORT);
+        app.listen(process.env.PORT, () => {
+            console.log('Running server at localhost:', process.env.PORT);
         });
     }
     catch (error) {
@@ -65,13 +65,13 @@ app.get('/chats', (req, res) => {
 
 
 /* POST CALLS - limited (using IP addr) */
-app.post('/chats', rateLimiter(1, 10), (req, res) => {
+app.post('/chats', rateLimiter(10, 10), (req, res) => {
     if (isValidChat(req.body)) {
         // insert into db...
         console.log('Chat was validated. -> POST')
         const chat = {
-            name: filter.clean(req.body.name.toString()),
-            content: filter.clean(req.body.content.toString()),
+            name: structureContent(req.body.name.toString(), false),
+            content: structureContent(req.body.content.toString(), true),
             created: new Date()
         };
         try {
@@ -103,4 +103,10 @@ app.post('/chats', rateLimiter(1, 10), (req, res) => {
 function isValidChat(chat) {
     return chat.name && chat.name.toString().trim() !== '' &&
         chat.content && chat.content.toString().trim() !== '';
+}
+
+function structureContent(chat, multiLine) {
+    var filteredContent = filter.clean(chat);
+    if (multiLine) filteredContent = filteredContent.replace(/\n/g, '<br />');
+    return filteredContent;
 }

@@ -91,7 +91,7 @@ function listAllChats() {
                 const divCardBody = document.createElement('div');
                 divCardBody.className = 'card-body pr-3 pl-1';
                 const divCardBodySpec = document.createElement('div');
-                divCardBodySpec.className = 'd-flex w-100 justify-content-between align-items-center';
+                divCardBodySpec.className = 'd-flex w-100 justify-content-between';
                 
                 // create img
                 const icon = document.createElement('img');
@@ -110,7 +110,7 @@ function listAllChats() {
                 // create message
                 const content = document.createElement('p');
                 content.className = 'card-text';
-                content.textContent = chat.content;
+                content.innerHTML = chat.content;
 
                 // append divs with content
                 divCol1.appendChild(icon);

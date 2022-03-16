@@ -43,6 +43,11 @@ html, body {
     border: 3px solid #8d1344;
 }
 
+code {
+    color: #4776bd;
+    font-weight: bold;
+}
+
 /*
 .form-control:focus {
     border-color: #d4862c;
