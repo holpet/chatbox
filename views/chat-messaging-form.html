@@ -1,0 +1,23 @@
+<form class="needs-validation" id="chatForm" novalidate>
+    <div class="mb-3">
+        <label for="usernameInput" class="form-label">Your name</label>
+        <div class="input-group ">
+            <span class="input-group-text" id="addon-wrapping">@</span>
+            <input type="text" class="form-control rounded" placeholder="" id="usernameInput" name="name" aria-label="Your name" aria-describedby="usernameInput" required>
+            <a class="btn btn-outline-secondary rounded-end" id="loginButton" data-bs-toggle="modal" href="#loginModal" role="button">LOGIN</a>
+            <div class="invalid-feedback">
+                Missing name.
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="messageTextarea" class="form-label">Your message</label>
+        <textarea class="form-control" id="messageTextArea" name="message" title="Message" placeholder="" rows="3" required></textarea>
+        <div class="invalid-feedback">
+            Missing message.
+        </div>
+    </div>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+        <button class="btn btn-lg btn-secondary" type="submit" id="submitButton"><span id="submitBtnText">Send your chat</span></button>
+    </div>
+</form>

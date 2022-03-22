@@ -26,21 +26,48 @@ html, body {
     overflow: auto;
 }
 
-#submitButton {
+.login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50em;
+    height: auto;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    overflow: auto;
+}
+
+#submitButton, .loginButton {
     border-radius: 25px;
     background-color: #6398e9;
     border: 3px solid #4e7fcb;
+    color: white;
     font-size: large;
 }
 
-#submitButton:hover {
+#submitButton:hover, .loginButton:hover {
     background-color: #4e7fcb;
     border: 3px solid #9ec4ff;
+    color: white;
 }
 
 #submitButton[disabled] {
     background-color: #ad1f57;
     border: 3px solid #8d1344;
+}
+
+.regButton {
+    border-radius: 25px;
+    background-color: #000000;
+    border: 3px solid #3f3f3f;
+    color: white;
+    font-size: large;
+}
+
+.regButton:hover {
+    background-color: #3f3f3f;
+    border: 3px solid #000000;
+    color: white;
 }
 
 code {
@@ -79,4 +106,9 @@ code {
 .allChats {
     padding: 15px;
     /*border: 5px solid darkgray;*/
+}
+
+#loginModal, #registerModal {
+    background-color: #c9c9c9;
+    
 }

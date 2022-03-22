@@ -1,68 +1,83 @@
-console.log('Client has been initialized...')
+console.log('Client has been initialized...');
 const API_URL = 'http://localhost:5050/chats';
 
-const form = document.querySelector('form');
 const allChats = document.querySelector('.allChats');
-const submitButton = document.getElementById('submitButton');
-const messageTextArea = document.getElementById('messageTextArea');
 
-blurAndLoad(true);
-listAllChats();
+loadExternalHTMLelements();
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(form);
-    const name = formData.get('name');
-    const content = formData.get('message');
-
+$(window).on('load', function() {
+    console.log('window on load...');
     blurAndLoad(true);
+    manageForm();
+    manageLoginButton();
+    listAllChats();
+ });
 
-    const chat = {
-        name,
-        content
-    };
+function loadExternalHTMLelements() {
+    $("#chat-messaging-form").load("./views/chat-messaging-form.html");
+    $("#login-register-modals").load("./views/login-register-modals.html");
+    console.log('external html elements loaded...');
+}
 
-    if (!form.checkValidity()) {
-        form.classList.add('was-validated');
-    }
-    else {
-        form.classList.remove('was-validated');
-        messageTextArea.value = '';
-    }
+function manageForm() {
+    const form = document.querySelector('#chatForm');
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+    
+        const formData = new FormData(form);
+        const name = formData.get('name');
+        const content = formData.get('message');
+    
+        blurAndLoad(true);
+    
+        const chat = {
+            name,
+            content
+        };
+    
+        if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+        }
+        else {
+            form.classList.remove('was-validated');
+            const messageTextArea = document.getElementById('messageTextArea');
+            messageTextArea.value = '';
+        }
+    
+        // Add chat into a database
+        try {
+            fetch(API_URL, {
+                method: 'POST',
+                body: JSON.stringify(chat),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })  .then(response => {
+                    // status OK
+                    if (response.status === response.ok) {
+                        console.log('Chat validated and sent.');
+                    }
+                    // error: too many requests
+                    else if (response.status === 429) {
+                        countdownTooManyRequests(10);
+                    }
+                    // error missing name and/or message
+                    else if (response.status === 442) {
+                        console.log("Missing name and/or content.");
+                    }
+                    return response.json();
+            })
+                .then(chat => {
+                    listAllChats();
+                    console.log(chat);
+                });
+        }
+        catch (error) {
+            throw boomify(error);
+        }
+    });
+}
 
-    // Add chat into a database
-    try {
-        fetch(API_URL, {
-            method: 'POST',
-            body: JSON.stringify(chat),
-            headers: {
-                'content-type': 'application/json'
-            }
-        })  .then(response => {
-                // status OK
-                if (response.status === response.ok) {
-                    console.log('Chat validated and sent.');
-                }
-                // error: too many requests
-                else if (response.status === 429) {
-                    countdownTooManyRequests(10);
-                }
-                // error missing name and/or message
-                else if (response.status === 442) {
-                    console.log("Missing name and/or content.");
-                }
-                return response.json();
-        })
-            .then(chat => {
-                listAllChats();
-                console.log(chat);
-            });
-    }
-    catch (error) {
-        throw boomify(error);
-    }
-});
 
 
 function listAllChats() {
@@ -91,7 +106,7 @@ function listAllChats() {
                 const divCardBody = document.createElement('div');
                 divCardBody.className = 'card-body pr-3 pl-1';
                 const divCardBodySpec = document.createElement('div');
-                divCardBodySpec.className = 'd-flex w-100 justify-content-between';
+                divCardBodySpec.className = 'd-flex w-100 justify-content-between align-self-start';
                 
                 // create img
                 const icon = document.createElement('img');
@@ -184,4 +199,17 @@ function countdownTooManyRequests(seconds) {
             $('#submitButton').html('Please wait ' + seconds--);
         }
     }, 1000);
+}
+
+function manageLoginButton() { 
+    const loginButton = document.querySelector('#loginButton'); 
+    const signButton = $('#addon-wrapping').hide();
+    loginButton.addEventListener('click', () => {
+        if (loginButton.textContent === 'LOGIN') {
+            loginButton.textContent = 'LOGOUT';
+        }
+        else {
+            loginButton.textContent = 'LOGIN';
+        }
+    });
 }
