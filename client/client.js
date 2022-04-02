@@ -1,26 +1,180 @@
 console.log('Client has been initialized...');
-const API_URL = 'http://localhost:5050/chats';
+const API_URL = 'http://localhost:5050/';
 
 const allChats = document.querySelector('.allChats');
 
 loadExternalHTMLelements();
+blurAndLoad(true);
 
-$(window).on('load', function() {
-    console.log('window on load...');
-    blurAndLoad(true);
-    manageForm();
+$(window).on('load', () => {
+    console.log('CONTROL STATUS: window has been loaded...');
+    manageChatForm();
+    manageRegisterForm();
+    manageLoginForm();
     manageLoginButton();
     listAllChats();
  });
 
 function loadExternalHTMLelements() {
-    $("#chat-messaging-form").load("./views/chat-messaging-form.html");
-    $("#login-register-modals").load("./views/login-register-modals.html");
-    console.log('external html elements loaded...');
+    var status = true;
+    $("#chat-messaging-form").load("./views/chat-messaging-form.html", (responseTxt, statusTxt, xhr) => {
+        if (statusTxt !== "success") status = false;
+    });
+    $("#login-register-modals").load("./views/login-register-modals.html", (responseTxt, statusTxt, xhr) => {
+        if (statusTxt !== "success") status = false;
+    });
+    return status;
 }
 
-function manageForm() {
+function waitForJQuery(nameOfElement) {
+    var waitSetter = setInterval(() => {
+        var element = document.querySelector(nameOfElement);
+        if (element !== null) clearInterval(waitSetter);
+    }, 10);
+}
+
+function manageRegisterForm() {
+    waitForJQuery('#registerForm');
+    const regForm = document.querySelector('#registerForm');
+
+    regForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        $('#regUsernameCheck').value = "Missing username.";
+        $('#regEmailCheck').value = "Missing / incorrect email.";
+    
+        const formData = new FormData(regForm);
+        const username = formData.get('username');
+        const email = formData.get('email');
+        const password = formData.get('password');
+    
+        blurAndLoad(true);
+    
+        const userData = {
+            username,
+            email,
+            password
+        };
+    
+        if (!regForm.checkValidity()) {
+            regForm.classList.add('was-validated');
+        }
+        else {
+            regForm.classList.remove('was-validated');
+        }
+    
+        // Check user data against a database
+        try {
+            fetch(API_URL + 'register', {
+                method: 'POST',
+                body: JSON.stringify(userData),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })  .then(response => {
+                console.log('status in client: ' + response.headers.status);
+                    // status OK
+                    if (response.headers.status === response.headers.ok) {
+                        console.log('Registration complete.');
+                    }
+                    // error: too many requests
+                    else if (response.headers.status === 429) {
+                        // TODO: countdownTooManyRequests(10);
+                    }
+                    // error: username already in use
+                    else if (response.headers.status === 450) {
+                        console.log("450 in use ... username");
+                        regForm.classList.add('was-validated');
+                        $('#regUsernameCheck').value = "Username already in use.";
+                    }
+                    // error: email already in use
+                    else if (response.headers.status === 451) {
+                        console.log("451 in use ... email");
+                        regForm.classList.add('was-validated');
+                        $('#regEmailCheck').value = "Email already in use.";
+                    }
+                    return response.json();
+            })
+                .then(regData => {
+                    console.log(regData);
+                    // TODO: Alert success popup on registration
+                    //$('#loginModal').modal('hide');
+                    blurAndLoad(false);
+                });
+        }
+        catch (error) {
+            throw boomify(error);
+        }
+    });
+}
+
+function manageLoginForm() {
+    waitForJQuery('#loginForm');
+    const logForm = document.querySelector('#loginForm');
+
+    logForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+    
+        const formData = new FormData(logForm);
+        const email = formData.get('email');
+        const password = formData.get('password');
+    
+        blurAndLoad(true);
+    
+        const userData = {
+            email,
+            password
+        };
+    
+        if (!logForm.checkValidity()) {
+            logForm.classList.add('was-validated');
+        }
+        else {
+            logForm.classList.remove('was-validated');
+        }
+    
+        // Check user data against a database
+        try {
+            fetch(API_URL + 'login', {
+                method: 'POST',
+                body: JSON.stringify(userData),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })  .then(response => {
+                console.log('in login response...')
+                    // status OK
+                    if (response.headers.status === response.headers.ok) {
+                        console.log('Login complete.');
+                    }
+                    // error: too many requests
+                    else if (response.headers.status === 429) {
+                        countdownTooManyRequests(10);
+                    }
+                    // error missing name and/or message
+                    else if (response.headers.status === 442) {
+                        console.log("Missing email and/or password.");
+                    }
+                    return response.json();
+            })
+                .then(logData => {
+                    console.log('username >>> ' + logData[0].username);
+                    // TODO: Alert success popup on login
+                    $('#loginModal').modal('hide');
+                    blurAndLoad(false);
+                    // TODO: Customized login page OR NOT
+                    //document.location.reload();
+                });
+        }
+        catch (error) {
+            throw boomify(error);
+        }
+    });
+}
+
+function manageChatForm() {
+    waitForJQuery('#chatForm');
     const form = document.querySelector('#chatForm');
+
     form.addEventListener('submit', (event) => {
         event.preventDefault();
     
@@ -46,7 +200,7 @@ function manageForm() {
     
         // Add chat into a database
         try {
-            fetch(API_URL, {
+            fetch(API_URL + 'chats', {
                 method: 'POST',
                 body: JSON.stringify(chat),
                 headers: {
@@ -83,7 +237,7 @@ function manageForm() {
 function listAllChats() {
     allChats.innerHTML = '';
     try {
-        fetch(API_URL)
+        fetch(API_URL + 'chats')
         .then(res => res.json())
         .then(chats => {
             const div = document.createElement('div');
@@ -98,11 +252,11 @@ function listAllChats() {
                     firstElem = false;
                 }
                 const divRow = document.createElement('div');
-                divRow.className = 'row g-0';
+                divRow.className = 'row g-0 justify-content-left';
                 const divCol1 = document.createElement('div');
-                divCol1.className = 'col-2 mx-auto';
+                divCol1.className = 'col mx-auto icon-sidebar';
                 const divCol2 = document.createElement('div');
-                divCol2.className = 'col-10';
+                divCol2.className = 'col';
                 const divCardBody = document.createElement('div');
                 divCardBody.className = 'card-body pr-3 pl-1';
                 const divCardBodySpec = document.createElement('div');
@@ -111,12 +265,12 @@ function listAllChats() {
                 // create img
                 const icon = document.createElement('img');
                 icon.src = 'img/catbox_favicon_bigger.png';
-                icon.className = 'img-fluid rounded-circle m-2 p-1';
+                icon.className = 'img-fluid rounded-circle m-2 p-1 icon';
                 icon.alt = 'User icon image';
                 
                 // create name & date
                 const header = document.createElement('h5');
-                header.className = 'card-title';
+                header.className = 'card-title text-break';
                 header.textContent = chat.name;
                 const small = document.createElement('small');
                 small.className = 'text-muted';
@@ -124,7 +278,7 @@ function listAllChats() {
                 
                 // create message
                 const content = document.createElement('p');
-                content.className = 'card-text';
+                content.className = 'card-text text-break';
                 content.innerHTML = chat.content;
 
                 // append divs with content
@@ -188,11 +342,13 @@ function blurAndLoad(isLoading) {
 }
 
 function countdownTooManyRequests(seconds) {
+    // TODO: too many requests - cases for register & login
+
     countdownInterval = setInterval(() => {
         if (seconds === 1) {
-            clearInterval(countdownInterval);
             $('#submitButton').prop('disabled', false);
             $('#submitButton').html('Send your chat');
+            clearInterval(countdownInterval);
         }
         else {
             $('#submitButton').prop('disabled', true);
@@ -202,8 +358,8 @@ function countdownTooManyRequests(seconds) {
 }
 
 function manageLoginButton() { 
-    const loginButton = document.querySelector('#loginButton'); 
-    const signButton = $('#addon-wrapping').hide();
+    var loginButton = document.querySelector('#loginButton'); 
+    var signButton = $('#addon-wrapping').hide();
     loginButton.addEventListener('click', () => {
         if (loginButton.textContent === 'LOGIN') {
             loginButton.textContent = 'LOGOUT';

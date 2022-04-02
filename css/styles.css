@@ -11,8 +11,25 @@ html, body {
 }
 
 .icon {
-    max-width: 250px;
-    max-height: 250px;
+    width: 100px;
+    height: auto;
+}
+@media (max-width: 690px) {
+    .icon {
+        width: 80px;
+    } 
+}
+
+.icon-sidebar {
+    -ms-flex: 0 0 117px;
+    flex: 0 0 117px;
+    background-color: #9ec4ff; 
+}
+@media (max-width: 690px) {
+    .icon-sidebar {
+        -ms-flex: 0 0 96px;
+        flex: 0 0 96px;
+    } 
 }
 
 .loading {
@@ -109,6 +126,8 @@ code {
 }
 
 #loginModal, #registerModal {
-    background-color: #c9c9c9;
-    
+    /*background-color: #c9c9c9;*/
+    background: rgba(201, 201, 201, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }

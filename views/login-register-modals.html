@@ -1,4 +1,4 @@
-<!-- MODAL LOGIN -->
+<!-- MODAL LOGIN TABS -->
 <div class="modal fade" id="loginModal" aria-hidden="true" aria-labelledby="login-register-modals" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -15,29 +15,28 @@
 
         <div class="modal-body">
           <div class="tab-content" id="logRegContent">
-
-            <!-- LOGIN FORM -->
             <div class="tab-pane fade show active" id="tab-loginForm" role="tabpanel" aria-labelledby="login-tab">
 
               <div class="my-3 d-flex w-100 justify-content-center align-items-center">
                 <h5 class="title">Login to your account.</h5>
               </div>
 
+              <!-- LOGIN FORM -->
               <form class="needs-validation" id="loginForm" novalidate>
                 <div class="mb-3">
-                    <div class="input-group flex-nowrap">
-                        <span class="input-group-text material-icons" id="addon-wrapping-email">alternate_email</span>
+                    <div class="input-group">
+                        <span class="input-group-text material-icons" id="log-addon-wrapping-email">alternate_email</span>
                         <input type="email" class="form-control" placeholder="Email" id="logEmailInput" name="email" aria-label="Email" aria-describedby="Email" required>
-                        <div class="invalid-feedback">
+                        <div id="logEmailCheck" class="invalid-feedback">
                             Missing email.
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                  <div class="input-group flex-nowrap">
-                    <span class="input-group-text material-icons" id="addon-wrapping-password">lock</span>
+                  <div class="input-group">
+                    <span class="input-group-text material-icons" id="log-addon-wrapping-password">lock</span>
                     <input type="password" class="form-control" placeholder="Password" id="logPasswordInput" name="password" aria-label="Password" aria-describedby="Password" required>
-                    <div class="invalid-feedback">
+                    <div id="logPasswordCheck" class="invalid-feedback">
                         Missing password.
                     </div>
                   </div>
@@ -46,30 +45,41 @@
                   <button class="btn loginButton" type="submit" id="submitLoginButton">Login</button>
                 </div>
               </form>
+              <!-- End of LF -->
+
             </div>
 
-            <!-- REGISTRATION FORM -->
             <div class="tab-pane fade" id="tab-regForm" role="tabpanel" aria-labelledby="register-tab">
 
               <div class="my-3 d-flex w-100 justify-content-center align-items-center">
                 <h5 class="title">Register your account.</h5>
               </div>
 
+              <!-- REGISTRATION FORM -->
               <form class="needs-validation" id="registerForm" novalidate>
                 <div class="mb-3">
-                    <div class="input-group flex-nowrap">
-                        <span class="input-group-text material-icons" id="addon-wrapping-email">alternate_email</span>
+                  <div class="input-group">
+                      <span class="input-group-text material-icons" id="reg-addon-wrapping-username">person</span>
+                      <input type="text" class="form-control" placeholder="Username" id="regUsernameInput" name="username" aria-label="Username" aria-describedby="Username" required>
+                      <div id="regUsernameCheck" class="invalid-feedback">
+                          Missing username.
+                      </div>
+                  </div>
+              </div>
+                <div class="mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text material-icons" id="reg-addon-wrapping-email">alternate_email</span>
                         <input type="email" class="form-control" placeholder="Email" id="regEmailInput" name="email" aria-label="Email" aria-describedby="Email" required>
-                        <div class="invalid-feedback">
-                            Missing email.
+                        <div id="regEmailCheck" class="invalid-feedback">
+                            Missing / incorrect email.
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                  <div class="input-group flex-nowrap">
-                    <span class="input-group-text material-icons" id="addon-wrapping-password">lock</span>
+                  <div class="input-group">
+                    <span class="input-group-text material-icons" id="reg-addon-wrapping-password">lock</span>
                     <input type="password" class="form-control" placeholder="Password" id="regPasswordInput" name="password" aria-label="Password" aria-describedby="Password" required>
-                      <div class="invalid-feedback">
+                      <div id="regPasswordCheck" class="invalid-feedback">
                           Missing password.
                       </div>
                   </div>
@@ -77,7 +87,9 @@
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
                   <button class="btn regButton" type="submit" id="submitRegButton">Register</button>
                 </div>
-            </form>  
+            </form>
+            <!-- End of RF -->
+
           </div>
 
         </div>

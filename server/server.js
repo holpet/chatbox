@@ -5,6 +5,7 @@ const monk = require('monk');
 const cors = require('cors');
 const session = require('express-session');
 require('dotenv').config(); //{path: '../.env'}
+const crypto = require('crypto');
 const Filter = require('bad-words');
 const rateLimit = require('express-rate-limit');
 
@@ -109,7 +110,49 @@ app.post('/chats', rateLimiter(10, 10), (req, res) => {
         res.json({
             error: {
                 status: 442,
-                message: 'Missing name and/or content'
+                message: 'Missing name and/or content.'
+            }
+        });
+    }
+});
+
+/* Login */
+app.post('/login', rateLimiter(10, 10), (req, res) => {
+    Users
+        .find({ 'email': { $eq: req.body.email } })
+        .then(logData => {
+            // TODO: Check if password is ok + bcrypt
+            res.json(logData);
+        });
+});
+
+/* Register */
+app.post('/register', rateLimiter(10, 10), (req, res) => {
+    const regValidation = isValidRegister(req.body);
+    console.log('reg val num: ' + regValidation);
+    if (regValidation === 200) {
+        const reg = {
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
+        };
+        try {
+            Users
+                .insert(reg)
+                .then(regData => {
+                    res.json(regData);
+                });
+        }
+        catch (error) {
+            throw boomify(error);
+        }
+    }
+    else {
+        res.status(regValidation);
+        res.json({
+            error: {
+                status: regValidation,
+                message: 'Registration request rejected - username or email already in use.'
             }
         });
     }
@@ -121,6 +164,26 @@ app.post('/chats', rateLimiter(10, 10), (req, res) => {
 function isValidChat(chat) {
     return chat.name && chat.name.toString().trim() !== '' &&
         chat.content && chat.content.toString().trim() !== '';
+}
+
+function isValidRegister(regData) {
+        Users
+            .find({ 'username': { $eq: regData.username } })
+            .then(data => {
+                if (data.length !== 0) {
+                    console.log(data);
+                    return 450;
+                }
+            });
+        Users
+            .find({ 'email': { $eq: regData.email } })
+            .then(data => {
+                if (data.length !== 0) {
+                    console.log(data);
+                    return 451;
+                }
+            });
+    return 200;
 }
 
 function structureContent(chat, multiLine) {
