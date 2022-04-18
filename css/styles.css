@@ -41,6 +41,7 @@ html, body {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     overflow: auto;
+    z-index: 1000;
 }
 
 .login {
@@ -63,8 +64,8 @@ html, body {
 }
 
 #submitButton:hover, .loginButton:hover {
-    background-color: #4e7fcb;
-    border: 3px solid #9ec4ff;
+    background-color: #7aa8ec;
+    border: 3px solid #4e7fcb;
     color: white;
 }
 
@@ -109,6 +110,13 @@ code {
 
 .action-highlight:hover {
     background-color: #f9f9f9;
+}
+
+.action-highlight2 {
+    background-color: #f9f9f9;
+}
+.action-highlight2:hover {
+    background-color: #fdfdfd;
 }
 
 .card-border {

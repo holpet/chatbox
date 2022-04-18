@@ -3,7 +3,7 @@ const API_URL = 'http://localhost:5050/';
 
 const allChats = document.querySelector('.allChats');
 
-loadExternalHTMLelements();
+//loadExternalHTMLelements();
 blurAndLoad(true);
 
 $(window).on('load', () => {
@@ -11,7 +11,7 @@ $(window).on('load', () => {
     manageChatForm();
     manageRegisterForm();
     manageLoginForm();
-    manageLoginButton();
+    //manageSwitch();
     listAllChats();
  });
 
@@ -26,22 +26,19 @@ function loadExternalHTMLelements() {
     return status;
 }
 
-function waitForJQuery(nameOfElement) {
-    var waitSetter = setInterval(() => {
-        var element = document.querySelector(nameOfElement);
-        if (element !== null) clearInterval(waitSetter);
-    }, 10);
-}
-
 function manageRegisterForm() {
-    waitForJQuery('#registerForm');
     const regForm = document.querySelector('#registerForm');
 
     regForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        $('#regUsernameCheck').value = "Missing username.";
-        $('#regEmailCheck').value = "Missing / incorrect email.";
+
+        /* Reset form validator */
+        $('#regUsernameCheck').text('Missing username.');
+        $('#regEmailCheck').text('Missing / incorrect email.');
+        $('#regUsernameInput').removeClass('is-invalid');
+        $('#regEmailInput').removeClass('is-invalid');
     
+        /* Get form data */
         const formData = new FormData(regForm);
         const username = formData.get('username');
         const email = formData.get('email');
@@ -54,52 +51,57 @@ function manageRegisterForm() {
             email,
             password
         };
+
+        if (!regForm.checkValidity()) regForm.classList.add('was-validated');
+        else regForm.classList.remove('was-validated');
     
-        if (!regForm.checkValidity()) {
-            regForm.classList.add('was-validated');
-        }
-        else {
-            regForm.classList.remove('was-validated');
-        }
-    
-        // Check user data against a database
+        // Put user data into the database
         try {
             fetch(API_URL + 'register', {
                 method: 'POST',
                 body: JSON.stringify(userData),
                 headers: {
                     'content-type': 'application/json'
-                }
-            })  .then(response => {
-                console.log('status in client: ' + response.headers.status);
+                },
+                credentials: "include"
+            })  .then(async response => {
+
+                    /* Server-side data validation */
+
                     // status OK
-                    if (response.headers.status === response.headers.ok) {
+                    if (response.status === 200) {
                         console.log('Registration complete.');
+                        // TODO: Alert success popup on registration + settime
+                        regForm.reset();
+                        $('#regUsernameInput').removeClass('is-invalid');
+                        $('#regEmailInput').removeClass('is-invalid');
+                        regForm.classList.remove('was-validated');
+                        $('#loginModal').modal('hide');
+                        //$('#tab-loginForm').tab('show');
+
                     }
                     // error: too many requests
-                    else if (response.headers.status === 429) {
+                    else if (response.status === 429) {
                         // TODO: countdownTooManyRequests(10);
                     }
                     // error: username already in use
-                    else if (response.headers.status === 450) {
-                        console.log("450 in use ... username");
-                        regForm.classList.add('was-validated');
-                        $('#regUsernameCheck').value = "Username already in use.";
+                    else if (response.status === 480) {
+                        const body = await response.json();
+                        $('#regUsernameCheck').text(body.error);
+                        $('#regUsernameInput').addClass('is-invalid');
                     }
                     // error: email already in use
-                    else if (response.headers.status === 451) {
-                        console.log("451 in use ... email");
-                        regForm.classList.add('was-validated');
-                        $('#regEmailCheck').value = "Email already in use.";
+                    else if (response.status === 481) {
+                        const body = await response.json();
+                        $('#regEmailCheck').text(body.error);
+                        $('#regEmailInput').addClass('is-invalid');
                     }
-                    return response.json();
-            })
-                .then(regData => {
-                    console.log(regData);
-                    // TODO: Alert success popup on registration
-                    //$('#loginModal').modal('hide');
+                    else {
+                        const body = await response.json();
+                        console.log(body.error);
+                    }
                     blurAndLoad(false);
-                });
+            });
         }
         catch (error) {
             throw boomify(error);
@@ -108,11 +110,16 @@ function manageRegisterForm() {
 }
 
 function manageLoginForm() {
-    waitForJQuery('#loginForm');
     const logForm = document.querySelector('#loginForm');
 
     logForm.addEventListener('submit', (event) => {
         event.preventDefault();
+
+        /* Reset validator form */
+        $('#logEmailCheck').text('Missing email or username.');
+        $('#logPasswordCheck').text('Missing password.');
+        $('#logEmailInput').removeClass('is-invalid');
+        $('#logPasswordInput').removeClass('is-invalid');
     
         const formData = new FormData(logForm);
         const email = formData.get('email');
@@ -125,12 +132,10 @@ function manageLoginForm() {
             password
         };
     
-        if (!logForm.checkValidity()) {
-            logForm.classList.add('was-validated');
-        }
-        else {
-            logForm.classList.remove('was-validated');
-        }
+        if (!logForm.checkValidity()) logForm.classList.add('was-validated');
+        else logForm.classList.remove('was-validated');
+
+        if (email === '' || password === '') return;
     
         // Check user data against a database
         try {
@@ -139,31 +144,26 @@ function manageLoginForm() {
                 body: JSON.stringify(userData),
                 headers: {
                     'content-type': 'application/json'
-                }
-            })  .then(response => {
-                console.log('in login response...')
+                },
+                credentials: "include"
+            })  .then(async response => {
                     // status OK
-                    if (response.headers.status === response.headers.ok) {
+                    console.log(response);
+                    if (response.status === 200) {
                         console.log('Login complete.');
+                        $('#loginModal').modal('hide');
+                        logForm.reset();
+                        logForm.classList.remove('was-validated');
                     }
-                    // error: too many requests
-                    else if (response.headers.status === 429) {
-                        countdownTooManyRequests(10);
+                    else if (response.status === 401) {
+                        const body = await response.json();
+                        $('#logPasswordCheck').text(body.error);
+                        $('#logEmailCheck').text('');
+                        $('#logEmailInput').addClass('is-invalid');
+                        $('#logPasswordInput').addClass('is-invalid');
                     }
-                    // error missing name and/or message
-                    else if (response.headers.status === 442) {
-                        console.log("Missing email and/or password.");
-                    }
-                    return response.json();
-            })
-                .then(logData => {
-                    console.log('username >>> ' + logData[0].username);
-                    // TODO: Alert success popup on login
-                    $('#loginModal').modal('hide');
                     blurAndLoad(false);
-                    // TODO: Customized login page OR NOT
-                    //document.location.reload();
-                });
+            })
         }
         catch (error) {
             throw boomify(error);
@@ -172,7 +172,6 @@ function manageLoginForm() {
 }
 
 function manageChatForm() {
-    waitForJQuery('#chatForm');
     const form = document.querySelector('#chatForm');
 
     form.addEventListener('submit', (event) => {
@@ -205,18 +204,20 @@ function manageChatForm() {
                 body: JSON.stringify(chat),
                 headers: {
                     'content-type': 'application/json'
-                }
+                },
+                credentials: "include"
             })  .then(response => {
+                    console.log(response);
                     // status OK
-                    if (response.status === response.ok) {
+                    if (response.headers.status === response.headers.ok) {
                         console.log('Chat validated and sent.');
                     }
                     // error: too many requests
-                    else if (response.status === 429) {
+                    else if (response.headers.status === 429) {
                         countdownTooManyRequests(10);
                     }
                     // error missing name and/or message
-                    else if (response.status === 442) {
+                    else if (response.headers.status === 442) {
                         console.log("Missing name and/or content.");
                     }
                     return response.json();
@@ -237,7 +238,9 @@ function manageChatForm() {
 function listAllChats() {
     allChats.innerHTML = '';
     try {
-        fetch(API_URL + 'chats')
+        fetch(API_URL + 'chats', {
+            credentials: "include"
+        })
         .then(res => res.json())
         .then(chats => {
             const div = document.createElement('div');
@@ -357,15 +360,19 @@ function countdownTooManyRequests(seconds) {
     }, 1000);
 }
 
-function manageLoginButton() { 
-    var loginButton = document.querySelector('#loginButton'); 
-    var signButton = $('#addon-wrapping').hide();
-    loginButton.addEventListener('click', () => {
-        if (loginButton.textContent === 'LOGIN') {
-            loginButton.textContent = 'LOGOUT';
+
+function manageSwitch() {
+    const switchForm = document.querySelector('#flexSwitchCheckDefault');
+    switchForm.addEventListener('change', (event) => {
+        if ($('#switchLabel').is(":hidden")) {
+            $('#switchLabel').show();
+            $('#usernameInput').hide();
         }
         else {
-            loginButton.textContent = 'LOGIN';
+            $('#switchLabel').hide();
+            $('#usernameInput').show();
         }
+    //const usernameInput = $('#usernameInput').hide();
     });
+    
 }

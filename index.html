@@ -21,17 +21,50 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+        <!-- NAVBAR MENU -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="col-sm-6 mx-auto">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarScroll">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="--bs-scroll-height: 100px; text-align: center;">
+                            <li class="nav-item">
+                                <a class="btn btn-secondary rounded mx-1" style="border-radius: 25px; background-color: #6398e9; border: 3px solid #4e7fcb; color: white;" onMouseOver="this.style.backgroundColor='#7aa8ec'"
+                                onMouseOut="this.style.backgroundColor='#6398e9'" id="homeButton" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-secondary rounded mx-1" style="border-radius: 25px; background-color: grey; border: 3px solid rgb(110,110,110); color: white;" onMouseOver="this.style.backgroundColor='rgb(146, 146, 146)'"
+                                onMouseOut="this.style.backgroundColor='grey'" id="profileButton" href="#">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-secondary rounded mx-1" style="border-radius: 25px; background-color: grey; border: 3px solid rgb(110,110,110); color: white;" onMouseOver="this.style.backgroundColor='rgb(146, 146, 146)'"
+                                onMouseOut="this.style.backgroundColor='grey'" id="loginButton" data-bs-toggle="modal" href="#loginModal" role="button">Login</a>
+                            </li>
+                        </ul>
+
+                        <form class="d-flex">
+                            <input class="form-control" style="border-radius: 5px 0px 0px 5px" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-secondary" style="border-radius: 0px 5px 5px 0px" onMouseOver="this.style.backgroundColor='grey'" onMouseOut="this.style.backgroundColor='transparent'" type="submit"><span class="material-icons" style="vertical-align: middle; line-height: 0; position: relative; top: -1px;">search</span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
         <div class="container-fluid">
             <div class="px-4 py-3 my-3">
-                <div class="text-center">
-                    <img class="d-block mx-auto mb-4 circular" src="img/catbox_favicon1.png" id="title-img" alt="Picture of an excited cat." width="150">
-                    <h1 class="display-5 fw-bold spaced-title">C<span class="blue-box">H</span>ATBOX</h1>
-                </div>
+
                 <div class="col-lg-6 mx-auto">
 
-                    <!-- ********** div for CHAT MESSAGING FORM ********** -->
-                    <!-- loaded from client.js -->
-                    <div id="chat-messaging-form"></div>
+                    <!-- Page title and img -->
+                    <div class="text-center">
+                        <img class="d-block mx-auto mb-4 circular" src="img/catbox_favicon1.png" id="title-img" alt="Picture of an excited cat." width="150">
+                        <a style="text-decoration: none; color: inherit;" href="/">
+                            <h1 class="display-5 fw-bold spaced-title no-decoration">C<span class="blue-box">H</span>ATBOX</h1>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,6 +74,48 @@
         </div>
 
         <div class="col-lg-6 mx-auto">
+            <!-- ********** CHAT MESSAGING FORM ********** -->
+                    <!-- loaded from client.js -->
+                    <div class="container" id="chat-messaging-form">
+
+                        <form class="needs-validation my-3" id="chatForm" novalidate>
+                            <div class="card card-border">
+                                <div class="row g-0 justify-content-left">
+                                    <div class="col mx-auto icon-sidebar">
+                                        <img src="img/catbox_favicon_bigger.png" class="img-fluid rounded-circle m-2 p-1 icon" alt="Cat icon">
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-body pr-3 pl-1">
+
+                                            <div class="input-group mb-3 justify-content-between">
+                                                <input type="text" class="form-control action-highlight2 rounded" placeholder="What's your name?" id="usernameInput" name="name" aria-label="Your name" aria-describedby="usernameInput" required>
+                                                <div class="invalid-feedback">
+                                                    Missing name.
+                                                </div>
+                                                <div class="input-group-text" style="background-color: transparent; border: transparent; display: none;" id="switchLabel">logged in as&nbsp;<span style="font-weight: bold;">your-name</span></b></div>
+                                                <!--
+                                                <div class="form-check form-switch" style="margin-top: 6px; margin-left: 10px;">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>-->
+                                            </div>
+
+                                            <textarea class="form-control action-highlight2" id="messageTextArea" name="message" title="Message" placeholder="Tell us more!" rows="3" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Missing message.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 d-sm-flex justify-content-sm-end mt-3">
+                                <button class="btn btn-lg btn-secondary" type="submit" id="submitButton"><span id="submitBtnText">Send your chat</span></button>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+
             <!-- >>>>>>>>>>> div for ALL THE SAVED CHAT MESSAGES <<<<<<<<<<< -->
             <!-- loaded from client.js -->
             <div class="allChats"></div>
@@ -50,7 +125,110 @@
 
         <!-- div for ~~~~~~~~~ LOGIN / REGISTRATION MODALS ~~~~~~~~~ -->
         <!-- loaded from client.js -->
-        <div id="login-register-modals"></div>
+        <div id="login-register-modals">
+            <!-- MODAL LOGIN TABS -->
+            <div class="modal fade" id="loginModal" aria-hidden="true" aria-labelledby="login-register-modals" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <img class="d-block mx-auto mb-4 circular" src="img/catbox_favicon1.png" id="title-img" alt="Picture of an excited cat." width="100">
+
+                    <ul class="nav nav-tabs nav-fill" id="logRegTab" role="tablist">
+                    <li class="nav-item"  role="presentation">
+                        <button class="nav-link active" id="logTab" data-bs-toggle="tab" data-bs-target="#tab-loginForm" type="button" role="tab" aria-controls="login" aria-selected="true">LOGIN</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="regTab" data-bs-toggle="tab" data-bs-target="#tab-regForm" type="button" role="tab" aria-controls="register" aria-selected="false">REGISTER</button>
+                    </li>
+                    </ul>
+
+                    <div class="modal-body">
+                    <div class="tab-content" id="logRegContent">
+                        <div class="tab-pane fade show active" id="tab-loginForm" role="tabpanel" aria-labelledby="login-tab">
+
+                        <div class="my-3 d-flex w-100 justify-content-center align-items-center">
+                            <h5 class="title">Login to your account.</h5>
+                        </div>
+
+                        <!-- LOGIN FORM -->
+                        <form class="needs-validation" id="loginForm" novalidate>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <span class="input-group-text material-icons" id="log-addon-wrapping-email">alternate_email</span>
+                                    <input type="text" class="form-control" placeholder="Email / Username" id="logEmailInput" name="email" aria-label="Email" aria-describedby="Email" required>
+                                    <div id="logEmailCheck" class="invalid-feedback">
+                                        Missing email or username.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text material-icons" id="log-addon-wrapping-password">lock</span>
+                                <input type="password" class="form-control" placeholder="Password" id="logPasswordInput" name="password" aria-label="Password" aria-describedby="Password" required>
+                                <div id="logPasswordCheck" class="invalid-feedback">
+                                    Missing password.
+                                </div>
+                            </div>
+                            </div>
+                            <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+                            <button class="btn loginButton" type="submit" id="submitLoginButton">Login</button>
+                            </div>
+                        </form>
+                        <!-- End of LF -->
+
+                        </div>
+
+                        <div class="tab-pane fade" id="tab-regForm" role="tabpanel" aria-labelledby="register-tab">
+
+                        <div class="my-3 d-flex w-100 justify-content-center align-items-center">
+                            <h5 class="title">Register your account.</h5>
+                        </div>
+
+                        <!-- REGISTRATION FORM -->
+                        <form class="needs-validation" id="registerForm" novalidate>
+                            <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text material-icons" id="reg-addon-wrapping-username">person</span>
+                                <input type="text" class="form-control" placeholder="Username" id="regUsernameInput" name="username" aria-label="Username" aria-describedby="Username" required>
+                                <div id="regUsernameCheck" class="invalid-feedback">
+                                    Missing username.
+                                </div>
+                            </div>
+                        </div>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <span class="input-group-text material-icons" id="reg-addon-wrapping-email">alternate_email</span>
+                                    <input type="email" class="form-control" placeholder="Email" id="regEmailInput" name="email" aria-label="Email" aria-describedby="Email" required>
+                                    <div id="regEmailCheck" class="invalid-feedback">
+                                        Missing / incorrect email.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text material-icons" id="reg-addon-wrapping-password">lock</span>
+                                <input type="password" class="form-control" placeholder="Password" id="regPasswordInput" name="password" aria-label="Password" aria-describedby="Password" required>
+                                <div id="regPasswordCheck" class="invalid-feedback">
+                                    Missing password.
+                                </div>
+                            </div>
+                            </div>
+                            <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+                            <button class="btn regButton" type="submit" id="submitRegButton">Register</button>
+                            </div>
+                        </form>
+                        <!-- End of RF -->
+
+                    </div>
+
+                    </div>
+                </div>
+
+                </div>
+                </div>
+            </div>
+
+
+        </div>
         
         <script src="client/client.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
