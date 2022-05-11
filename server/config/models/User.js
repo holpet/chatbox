@@ -54,5 +54,5 @@ UserSchema.methods.isValidPassword = async function (password) {
 
 const User = connection.model('users', UserSchema);
 
-
+// Expose user
 module.exports = User;

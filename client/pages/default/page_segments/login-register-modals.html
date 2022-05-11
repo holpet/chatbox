@@ -1,0 +1,107 @@
+<!-- MODAL LOGIN TABS -->
+<div class="modal fade" id="loginModal" aria-hidden="true" aria-labelledby="login-register-modals" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+      <img class="d-block mx-auto mb-4 circular" src="logo-img" id="title-img" alt="Picture of an excited cat." width="100">
+
+      <ul class="nav nav-tabs nav-fill" id="logRegTab" role="tablist">
+      <li class="nav-item"  role="presentation">
+          <button class="nav-link active" id="logTab" data-bs-toggle="tab" data-bs-target="#tab-loginForm" type="button" role="tab" aria-controls="login" aria-selected="true">LOGIN</button>
+      </li>
+      <li class="nav-item" role="presentation">
+          <button class="nav-link" id="regTab" data-bs-toggle="tab" data-bs-target="#tab-regForm" type="button" role="tab" aria-controls="register" aria-selected="false">REGISTER</button>
+      </li>
+      </ul>
+
+      <div class="modal-body">
+      <div class="tab-content" id="logRegContent">
+          <div class="tab-pane fade show active" id="tab-loginForm" role="tabpanel" aria-labelledby="login-tab">
+
+          <div class="my-3 d-flex w-100 justify-content-center align-items-center">
+              <h5 class="title">Login to your account.</h5>
+          </div>
+
+          <div class="alert alert-success" role="alert" id="alert-success-registration">
+            Registration successful! Please, log in.
+          </div>
+
+          <!-- LOGIN FORM -->
+          <form class="needs-validation" id="loginForm" novalidate>
+              <div class="mb-3">
+                  <div class="input-group">
+                      <span class="input-group-text material-icons" id="log-addon-wrapping-email">alternate_email</span>
+                      <input type="text" class="form-control" placeholder="Email / Username" id="logEmailInput" name="email" aria-label="Email" aria-describedby="Email" required>
+                      <div id="logEmailCheck" class="invalid-feedback">
+                          Missing email or username.
+                      </div>
+                  </div>
+              </div>
+              <div class="mb-3">
+              <div class="input-group">
+                  <span class="input-group-text material-icons" id="log-addon-wrapping-password">lock</span>
+                  <input type="password" class="form-control" placeholder="Password" id="logPasswordInput" name="password" aria-label="Password" aria-describedby="Password" required>
+                  <div id="logPasswordCheck" class="invalid-feedback">
+                      Missing password.
+                  </div>
+              </div>
+              </div>
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+              <button class="btn loginButton" type="submit" id="submitLoginButton">Login</button>
+              </div>
+          </form>
+          <!-- End of LF -->
+
+          </div>
+
+          <div class="tab-pane fade" id="tab-regForm" role="tabpanel" aria-labelledby="register-tab">
+
+          <div class="my-3 d-flex w-100 justify-content-center align-items-center">
+              <h5 class="title">Register your account.</h5>
+          </div>
+
+          <!-- REGISTRATION FORM -->
+          <form class="needs-validation" id="registerForm" novalidate>
+              <div class="mb-3">
+              <div class="input-group">
+                  <span class="input-group-text material-icons" id="reg-addon-wrapping-username">person</span>
+                  <input type="text" class="form-control" placeholder="Username" id="regUsernameInput" name="username" aria-label="Username" aria-describedby="Username" required>
+                  <div id="regUsernameCheck" class="invalid-feedback">
+                      Missing username.
+                  </div>
+              </div>
+          </div>
+              <div class="mb-3">
+                  <div class="input-group">
+                      <span class="input-group-text material-icons" id="reg-addon-wrapping-email">alternate_email</span>
+                      <input type="email" class="form-control" placeholder="Email" id="regEmailInput" name="email" aria-label="Email" aria-describedby="Email" required>
+                      <div id="regEmailCheck" class="invalid-feedback">
+                          Missing / incorrect email.
+                      </div>
+                  </div>
+              </div>
+              <div class="mb-3">
+              <div class="input-group">
+                  <span class="input-group-text material-icons" id="reg-addon-wrapping-password">lock</span>
+                  <input type="password" class="form-control" placeholder="Password" id="regPasswordInput" name="password" aria-label="Password" aria-describedby="Password" required>
+                  <div id="regPasswordCheck" class="invalid-feedback">
+                      Missing password.
+                  </div>
+              </div>
+              </div>
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+              <button class="btn regButton" type="submit" id="submitRegButton">Register</button>
+              </div>
+          </form>
+          <!-- End of RF -->
+
+      </div>
+
+      </div>
+  </div>
+
+  </div>
+  </div>
+</div>
+
+<script src="client/scripts/register.js"></script>
+<script src="client/scripts/login.js"></script>

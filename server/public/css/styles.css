@@ -1,0 +1,307 @@
+html, body {
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 100%;
+    background-color: #e4e4e4;
+}
+
+#circular {
+    border-radius: 50%;
+}
+.circular-icon { 
+    object-fit: cover; 
+    width: 120px; 
+    height: 120px; 
+    border-radius: 50%;
+}
+img.circular-icon {
+    border: #b6b3b3 solid 2px;
+}
+
+.icon {
+    object-fit: cover;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+@media (max-width: 690px) {
+    .icon {
+        width: 70px;
+        height: 70px;
+        padding: 2px;
+    }
+}
+.icon-link:hover {
+    cursor: pointer;
+}
+
+.icon-sidebar {
+    display: flex;
+    justify-content: center;
+    -ms-flex: 0 0 108px;
+    flex: 0 0 108px;
+    background-color: #9ec4ff; 
+}
+@media (max-width: 690px) {
+    .icon-sidebar {
+        -ms-flex: 0 0 85px;
+        flex: 0 0 85px;
+    }
+}
+
+.icon-profile {
+    object-fit: cover;
+    position: relative;
+    width: 130px;
+    height: 130px;
+    top: -93px;
+    border: #6398e9 2px;
+    border-style: solid;
+}
+@media (max-width: 690px) {
+    .icon-profile {
+        width: 100px;
+        height: 100px;
+        top: -70px;
+    } 
+}
+
+.icon-profile-sidebar {
+    /*background-color: #9ec4ff;*/ 
+    height: 60px;
+}
+@media (max-width: 690px) {
+    .icon-profile-sidebar {
+        height: 50px;
+    } 
+}
+
+.img-preview {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+@media (max-width: 1200px) {
+    .img-preview {
+        height: 150px;
+    } 
+}
+@media (max-width: 690px) {
+    .img-preview {
+        height: 100px;
+    } 
+}
+
+#editProfileButton, #followProfileButton {
+    border-radius: 25px;
+    height: 40px;
+    padding: 0 10px 0 10px;
+    margin: 10px;
+    font-size: medium;
+    white-space: nowrap;
+}
+@media (max-width: 690px) {
+    #editProfileButton, #followProfileButton {
+        height: 30px;
+    } 
+}
+#editProfileButton:hover, #followProfileButton:hover {
+    background-color: grey;
+}
+
+.index-button {
+    background-color: #88b0ec;
+    color: white;
+    letter-spacing: 4px;
+    border-left: #b6b3b3 solid 2px;
+    border-right: #b6b3b3 solid 2px;
+}
+.index-button:hover {
+    background-color: #6398e9;
+    color: white;
+    letter-spacing: 4px;
+}
+
+.modal-title-colored {
+    background-color: #9ec4ff; 
+    color: rgb(75, 75, 75);
+}
+
+.material-icons-adjusted {
+    vertical-align: middle; 
+    line-height: 0; 
+    position: relative; 
+    top: -1px;
+}
+
+.btn-outline-secondary {
+    background-color: transparent;
+}
+.btn-outline-secondary:hover {
+    background-color: grey;
+}
+
+.chat-link {
+    color:rgb(75, 75, 75);
+    text-decoration: none;
+}
+.chat-link:hover {
+    color: #4e7fcb;
+}
+
+.btn-blue {
+    border-radius: 25px; 
+    background-color: #6398e9; 
+    border: 3px solid #4e7fcb; 
+    color: white;
+}
+.btn-blue:hover {
+    background-color: #7aa8ec;
+    color: white;
+}
+
+.btn-grey {
+    border-radius: 25px; 
+    background-color: grey; 
+    border: 3px solid rgb(110,110,110); 
+    color: white;
+}
+.btn-grey:hover {
+    background-color: rgb(146, 146, 146);
+    color: white;
+}
+
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50em;
+    height: auto;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    z-index: 1000;
+}
+
+/*
+.login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50em;
+    height: auto;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    overflow: auto;
+}*/
+
+#submitButton, .loginButton {
+    border-radius: 25px;
+    background-color: #6398e9;
+    border: 3px solid #4e7fcb;
+    color: white;
+    font-size: large;
+}
+
+#submitButton:hover, .loginButton:hover {
+    background-color: #7aa8ec;
+    border: 3px solid #4e7fcb;
+    color: white;
+}
+
+#submitButton[disabled] {
+    background-color: #ad1f57;
+    border: 3px solid #8d1344;
+}
+
+.regButton {
+    border-radius: 25px;
+    background-color: #000000;
+    border: 3px solid #3f3f3f;
+    color: white;
+    font-size: large;
+}
+
+.regButton:hover {
+    background-color: #3f3f3f;
+    border: 3px solid #000000;
+    color: white;
+}
+
+code {
+    color: #4776bd;
+    font-weight: bold;
+}
+
+/*
+.form-control:focus {
+    border-color: #d4862c;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(224, 137, 6, 0.979);
+  }*/
+
+.blur {
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.no-exists {
+    opacity: 0%;
+}
+
+.bg-img {
+    height: 12em; 
+    object-fit: cover;
+}
+
+.bg-blue {
+    background-color: #6398e9;
+}
+
+.bg-lightblue {
+    background-color: #7aa8ec;
+}
+
+.bg-lighterblue {
+    background-color: #9ec4ff;   
+}
+
+.blue-box {
+    color: #6398e9;
+}
+
+.grey-box {
+    color: grey;
+} 
+
+.action-highlight:hover {
+    background-color: #f9f9f9;
+}
+
+.action-highlight2 {
+    background-color: #f9f9f9;
+}
+.action-highlight2:hover {
+    background-color: #fdfdfd;
+}
+
+.card-border {
+    border-color: #c9c9c9;
+}
+
+.spaced-title {
+    letter-spacing: 8px;
+    font-weight: 20;
+}
+
+.allChats {
+    padding: 15px;
+    /*border: 5px solid darkgray;*/
+}
+
+#loginModal, #registerModal, #editModal {
+    /*background-color: #c9c9c9;*/
+    background: rgba(201, 201, 201, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}

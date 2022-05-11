@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="col-sm-6 col-lg-7 col-md-8 col-xl-6 mx-auto">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="--bs-scroll-height: 100px; text-align: center;">
+                    <li class="nav-item">
+                        <a class="btn btn-secondary rounded mx-1" style="border-radius: 25px; background-color: #6398e9; border: 3px solid #4e7fcb; color: white;" onMouseOver="this.style.backgroundColor='#7aa8ec'"
+                        onMouseOut="this.style.backgroundColor='#6398e9'" id="homeButton" href="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-secondary rounded mx-1" style="border-radius: 25px; background-color: grey; border: 3px solid rgb(110,110,110); color: white;" onMouseOver="this.style.backgroundColor='rgb(146, 146, 146)'"
+                        onMouseOut="this.style.backgroundColor='grey'" id="loginButton" data-bs-toggle="modal" href="#loginModal" role="button">Login</a>
+                    </li>
+                </ul>
+
+                <form class="d-flex">
+                    <input class="form-control" style="border-radius: 5px 0px 0px 5px" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-secondary" id="searchButton" style="border-radius: 0px 5px 5px 0px" onMouseOver="this.style.backgroundColor='grey'" onMouseOut="this.style.backgroundColor='transparent'" type="submit"><span class="material-icons" style="vertical-align: middle; line-height: 0; position: relative; top: -1px;">search</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

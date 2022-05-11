@@ -1,0 +1,25 @@
+<!-- LOGIN FORM -->
+<form class="needs-validation" id="loginForm" novalidate>
+    <div class="mb-3">
+        <div class="input-group">
+            <span class="input-group-text material-icons" id="log-addon-wrapping-email">alternate_email</span>
+            <input type="text" class="form-control" placeholder="Email / Username" id="logEmailInput" name="email" aria-label="Email" aria-describedby="Email" required>
+            <div id="logEmailCheck" class="invalid-feedback">
+                Missing email or username.
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+    <div class="input-group">
+        <span class="input-group-text material-icons" id="log-addon-wrapping-password">lock</span>
+        <input type="password" class="form-control" placeholder="Password" id="logPasswordInput" name="password" aria-label="Password" aria-describedby="Password" required>
+        <div id="logPasswordCheck" class="invalid-feedback">
+            Missing password.
+        </div>
+    </div>
+    </div>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+    <button class="btn loginButton" type="submit" id="submitLoginButton">Login</button>
+    </div>
+</form>
+<!-- End of LF -->

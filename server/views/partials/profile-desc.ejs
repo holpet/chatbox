@@ -1,0 +1,81 @@
+<div class="col-lg-7 col-md-8 col-xl-6 mx-auto">
+    <div class="container">
+        <div class="card card-border">
+            <div class="card-body p-2 bg-blue"></div>
+
+            <!-- background img -->
+            <div class="bg-lightblue">
+                <% if (exists && profile.bg !== "") { %>
+                <img src="uploads/<%= profile.bg %>" class="card-img-top bg-img" alt="Cat icon">
+                <% } %>
+                <% if (exists && profile.bg === "") { %>
+                <img src="uploads/___default/bg/default_bg.jpg" class="card-img-top bg-img" alt="Cat icon"> 
+                <% } %>
+                <% if (!exists) { %>
+                <img src="uploads/___default/bg/default_bg.jpg" class="card-img-top bg-img no-exists" alt="Cat icon"> 
+                <% } %>
+            </div>
+
+            <div class="icon-profile-sidebar">
+                <div class="card-body p-2 bg-blue"></div>
+                <div class="d-flex w-100 justify-content-between">
+
+                    <!-- profile icon img -->
+                    <% if (exists && profile.icon !== "") { %>
+                    <img src="uploads/<%= profile.icon %>" class="img-fluid rounded-circle m-2 icon-profile" alt="Cat icon">
+                    <% } %>
+                    <% if (exists && profile.icon === "") { %>
+                    <img src="uploads/___default/icon/default_icon.png" class="img-fluid rounded-circle m-2 icon-profile" alt="Cat icon"> 
+                    <% } %>
+                    <% if (!exists) { %>
+                    <img src="uploads/___default/icon/default_icon_empty.png" class="img-fluid rounded-circle m-2 icon-profile" alt="Cat icon"> 
+                    <% } %>
+
+                     <!-- edit / follow buttons -->
+                    <% if (authenticated && exists) { %> 
+                    <button class="btn btn-lg btn-outline-secondary edit-button" id="editProfileButton" data-bs-toggle="modal" data-bs-target="#editModal">Edit profile</button>
+                    <%- include('./edit-modal.ejs') %> 
+                    <% } %> 
+                    <% if (!authenticated && exists) { %> 
+                    <button class="btn btn-lg btn-outline-secondary edit-button" id="followProfileButton" data-bs-toggle="modal" data-bs-target="#editModal">Follow</button>
+                    <% } %> 
+
+                </div>
+            </div>
+            
+            <!-- profile description -->
+            <div class="card-body pr-3 pl-1">
+
+                <% if (!exists) { %>
+                <h5 class="card-title text-break text-center">@<%= account %> </h5>
+                <div class="card-body p-2"></div>
+                <h4 class="card-title text-break text-center fw-bold">This account doesn't exist.</h4>
+                <p class="card-title text-break text-center">Try looking for another.</p>
+                <div class="card-body p-4"></div>
+                <% } %>
+
+                <% if (exists) { %>
+                <!-- NAME -->
+                <h5 class="card-title text-break fw-bold"><%= profile.name %></h5>
+                <!-- USERNAME -->
+                <h5 class="card-title text-break">@<%= username %></h5>
+                <!-- DESC -->
+                <p class="card-title text-break" id="p-desc"><%= profile.desc %></p>
+                <script>
+                $('#p-desc').html( $('#p-desc').text() );
+                </script>
+                
+                <div class="d-flex w-100 align-self-start">
+                    <small class="text-muted"><b>21</b> following</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <small class="text-muted"><b>15</b> followers</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <small class="text-muted"><b>52</b> messages posted</small>
+                </div>
+                <% } %>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script src="js/edit-profile.js"></script>

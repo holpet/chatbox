@@ -1,0 +1,17 @@
+<div class="col-lg-7 col-md-8 col-xl-6 mx-auto">
+
+    <%- include('loading.ejs')  %> 
+
+    <!-- show saved chat messages -->
+    <div class="allChats container"></div>
+
+    <!-- TODO: modal with messages -->
+
+</div>
+
+<div class="px-4 py-3 my-3"></div>
+
+<script src="js/helpers.js"></script>
+<script src="js/chat-listing.js"></script>
+
+<script>listAllChats('<%= username %>');</script>

@@ -1,0 +1,18 @@
+# mod_rewrite starts here
+
+RewriteEngine on
+
+# main links
+RewriteRule ^home?$ ./client/pages/home.html [NC,L]
+RewriteRule ^profile?$ ./client/pages/user/profile.html [NC,L]
+
+# main images
+RewriteRule ^logo-img?$ ./client/img/catbox_favicon1.png [NC,L]
+RewriteRule ^icon-img?$ ./client/img/catbox_favicon_bigger.png [NC,L]
+RewriteRule ^load-img?$ ./client/img/loading.gif [NC,L]
+
+# removing ".html" ending from url:
+
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_FILENAME}\.html -f
+# RewriteRule ^(.*)$ $1.html [NC,L]

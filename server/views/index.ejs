@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="px-4 py-3 my-3">
+
+        <div class="col-xl-6 col-xxl-5 col-lg-7 col-md-8 mx-auto">
+
+            <!-- Page title and img -->
+            <div class="text-center">
+                <h1 class="display-5 fw-bold spaced-title no-decoration">C<span class="blue-box">H</span>ATBOX</h1>
+                <br>
+                <h5>Please, choose a <b>type of user</b> you'd like to enter as:</h5>
+            </div>
+
+            <div class="row">
+
+                <!-- UNREGISTERED USER -->
+                <div class="col-sm-6 pt-5 text-center" id="anon-user">
+                    <img src="img/catbox_favicon_bigger.png" class="circular-icon mb-2 no-decoration" alt="default cat icon">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><a id="anon-user-choose" class="btn fs-5" onMouseOver="this.style.backgroundColor='#c9c9c9'" onMouseOut="this.style.backgroundColor='inherit'" style="text-decoration: none; display: block; font-weight: bold;" data-bs-toggle="collapse" href="#collapseContinueAnon" role="button" aria-expanded="false" aria-controls="collapseContinue"><span class="material-icons-outlined" id="anon-check" style="vertical-align: middle; line-height: 0; position: relative; top: -1px;">check_box_outline_blank</span> Anonymous</a></h5>
+                            <div class="collapse" id="collapseContinueAnon">
+                                <h5 class="card-title"><a href="/home" id="anon-user-btn" class="btn index-button" style="display: block; font-weight: bold;">Continue</a></h5>
+                            </div>                                
+                            <p class="card-text">You will be directed to a general homepage, where you can start posting messages. <br>If you're interested, you can register and log in to create your own account and customize it.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- REGISTERED + LOGGED IN USER -->
+                <div class="col-sm-6 pt-5 text-center">
+                        <img src="img/loading.gif" class="circular-icon mb-2 no-decoration" id="random-user-icon" alt="user cat icon">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a id="reg-user-choose" class="btn fs-5 collapsed" onMouseOver="this.style.backgroundColor='#c9c9c9'" onMouseOut="this.style.backgroundColor='inherit'" style="text-decoration: none; display: block; font-weight: bold;" data-bs-toggle="collapse" href="#collapseContinueReg" role="button" aria-expanded="false" aria-controls="collapseContinue"><span class="material-icons-outlined" id="reg-check" style="vertical-align: middle; line-height: 0; position: relative; top: -1px;">check_box_outline_blank</span> Registered</a></h5>
+                                <div class="collapse" id="collapseContinueReg">
+                                    <h5 class="card-title"><a href="/profile" id="reg-user-continue" class="btn index-button" style="display: block; font-weight: bold;">Continue</a></h5>
+                                </div>
+                                <p class="card-text">You will enter as a registered (logged in) user under assigned username and email - <i>refresh page for random shuffle</i>. Feel free to post messages and log out anytime.</p>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+
+            <div class="p-3"></div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/shuffleRegUsers.js"></script>

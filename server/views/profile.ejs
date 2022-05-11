@@ -1,0 +1,13 @@
+<%- include ('./partials/navig.ejs') %> 
+
+<%- include('./partials/title.ejs')  %> 
+
+<%- include('./partials/profile-desc.ejs')  %>
+
+<% if (exists) { %> 
+<%- include('./partials/listing.ejs')  %> 
+<% } %> 
+
+<% if (!authenticated) { %>
+    <%- include('./partials/login-register/login-and-register.ejs')  %>
+<% } %> 

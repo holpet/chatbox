@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="col-sm-6 col-lg-7 col-md-8 col-xl-6 mx-auto">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="--bs-scroll-height: 100px; text-align: center;">
+
+                    <li class="nav-item">
+                        <a class="btn btn-blue rounded mx-1" id="homeButton" href="/home">Home</a>
+                    </li>
+                    
+                <% if (!authenticated) { %>
+                    <li class="nav-item">
+                        <a class="btn btn-grey rounded mx-1" id="loginButton" data-bs-toggle="modal" href="#loginModal" role="button">Login</a>
+                    </li>
+                <% } %>
+
+                <% if (authenticated) { %>
+                    <li class="nav-item">
+                        <a class="btn btn-blue rounded mx-1" id="profileButton" href="/<%= username %>">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-grey rounded mx-1" id="logoutButton" href="/logout" role="button">Logout</a>
+                    </li>
+                <% } %>
+
+                </ul>
+
+                <%#TODO: Create search functionality %>
+                <form action="/search" method="GET" class="d-flex">
+                    <input class="form-control" style="border-radius: 5px 0px 0px 5px" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-secondary" id="searchButton" style="border-radius: 0px 5px 5px 0px" type="submit"><span class="material-icons material-icons-adjusted">search</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

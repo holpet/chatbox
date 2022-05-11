@@ -7,9 +7,18 @@ const ChatSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    registered: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     content: {
         type: String,
         required: true
+    },
+    img: {
+        type: Array,
+        default: []
     },
     created: {
         type: Date,
