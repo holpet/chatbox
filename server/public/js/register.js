@@ -30,6 +30,7 @@ function manageRegisterForm() {
 
         if (!regForm.checkValidity()) {
             regForm.classList.add('was-validated');
+            blurAndLoad(false);
             return;
         }
         else regForm.classList.remove('was-validated');

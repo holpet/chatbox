@@ -3,32 +3,6 @@ const path = require('path');
 const User = require('../config/models/User');
 const Profile = require('../config/models/Profile');
 
-// confirm that such a user already registered in db
-// (-> user exists -> continue route)
-async function isUser(username) {
-    try {
-        var user = await User.findOne({ username: username });
-        if (user) return true;
-        return false;
-    }
-    catch (error) {
-        done(error);
-    }
-}
-
-// confirm that such a profile was already added into db
-// (-> profile exists -> continue route)
-async function savedProfile(username) {
-    try {
-        var profile = await Profile.findOne({ username: username });
-        if (profile) return profile;
-        return null;
-    }
-    catch (error) {
-        done(error);
-    }
-}
-
 // deletes a file from server
 async function deleteFileByPrep(prep, username) {
     if (prep === 'misc') return;
@@ -50,7 +24,5 @@ function ensureDirExists(dir) {
     }
 }
 
-module.exports.isUser = isUser;
 module.exports.deleteFileByPrep = deleteFileByPrep;
 module.exports.ensureDirExists = ensureDirExists;
-module.exports.savedProfile = savedProfile;

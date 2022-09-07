@@ -5,7 +5,8 @@
 <%- include('./partials/profile-desc.ejs')  %>
 
 <% if (exists) { %> 
-<%- include('./partials/listing.ejs')  %> 
+<%- include('./partials/listing.ejs')  %>
+<script>listAllChats('<%= profile.userID %>', null);</script>
 <% } %> 
 
 <% if (!authenticated) { %>

@@ -5,19 +5,35 @@ const connection = require('../connection');
 const ProfileSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        lowercase: true
+    },
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        default: null
     },
     bg: {
-        type: String
+        type: String,
+        default: ""
     },
     icon: {
-        type: String
+        type: String,
+        default: ""
     },
     name: {
         type: String
     },
     desc: {
         type: String
+    },
+    followers: { // small numbers - otherwise hashtable
+        type: [ mongoose.Schema.Types.ObjectId ],
+        default: []
+    },
+    following: {
+        type: [ mongoose.Schema.Types.ObjectId ],
+        default: []
     }
 });
 

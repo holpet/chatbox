@@ -7,10 +7,10 @@ const ChatSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    registered: {
-        type: Boolean,
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        default: false
+        default: null
     },
     content: {
         type: String,

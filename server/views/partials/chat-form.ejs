@@ -5,11 +5,13 @@
                 <div class="col mx-auto icon-sidebar">
 
                     <!-- show icon -->
+                    <% const def = "___default/icon/default_icon.png"; %> 
                     <% if (!authenticated) { %> 
-                    <img src="uploads/___default/icon/default_icon.png" class="img-fluid rounded-circle my-2 icon" alt="Cat icon">
+                    <img src="uploads/<%= def %>" class="img-fluid rounded-circle my-2 icon" alt="Cat icon">
                     <% } %>
                     <% if (authenticated) { %> 
-                    <img src="uploads/<%= profile.icon %>" class="img-fluid rounded-circle my-2 icon icon-link" alt="Cat icon" onclick="window.open('/<%= profile.username %>', '_self')">
+                    <% const prof = (profile.icon === '') ? def : profile.icon ; %> 
+                    <img src="uploads/<%= prof %>" class="img-fluid rounded-circle my-2 icon icon-link" alt="Cat icon" onclick="window.open('/<%= profile.username %>', '_self')">
                     <% } %>
 
                 </div>

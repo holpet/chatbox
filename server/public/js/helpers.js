@@ -22,13 +22,9 @@ function convertDate(dateThen) {
 function blurAndLoad(isLoading) {
     if (isLoading) {
         $('#loading').show();
-        $('.container').addClass("blur");
-        $('.allChats').addClass("blur");
     }
     else {
         $('#loading').hide();
-        $('.container').removeClass("blur");
-        $('.allChats').removeClass("blur");
     }
 }
 
@@ -44,4 +40,22 @@ function countdownTooManyRequests(seconds) {
             $('#submitButton').html('Please wait ' + seconds--);
         }
     }, 1000);
+}
+
+
+// chat listing helpers
+
+function isEmpty(obj) {
+    //if (Object.keys(obj).length === 0) return true;
+    if (obj === undefined || obj === null) return true;
+    return false;
+}
+
+function getProfile(key, inputArray) {
+    return inputArray.find(({ userID }) => userID === key);
+}
+
+function shortenNames(name) {
+    if (name.length > 20) return name.slice(0,20) + '...';
+    return name;
 }

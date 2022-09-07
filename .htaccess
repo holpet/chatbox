@@ -7,8 +7,8 @@ RewriteRule ^home?$ ./client/pages/home.html [NC,L]
 RewriteRule ^profile?$ ./client/pages/user/profile.html [NC,L]
 
 # main images
-RewriteRule ^logo-img?$ ./client/img/catbox_favicon1.png [NC,L]
-RewriteRule ^icon-img?$ ./client/img/catbox_favicon_bigger.png [NC,L]
+RewriteRule ^logo-img?$ ./client/img/catbox_1.png [NC,L]
+RewriteRule ^icon-img?$ ./client/img/catbox__bigger.png [NC,L]
 RewriteRule ^load-img?$ ./client/img/loading.gif [NC,L]
 
 # removing ".html" ending from url:

@@ -82,27 +82,41 @@ img.circular-icon {
     width: 100%;
     object-fit: cover;
 }
+.img-preview-one {
+    height: 200px;
+    width: auto;
+    object-fit: cover;
+}
 @media (max-width: 1200px) {
-    .img-preview {
+    .img-preview, .img-preview-one {
         height: 150px;
     } 
 }
 @media (max-width: 690px) {
-    .img-preview {
+    .img-preview, .img-preview-one {
         height: 100px;
     } 
 }
 
+
+#overlay {
+    background-color: transparent;
+}
+ 
+
 #editProfileButton, #followProfileButton {
     border-radius: 25px;
     height: 40px;
-    padding: 0 10px 0 10px;
+    /*padding-top: 7px;*/
+    padding-left: 10px;
+    padding-right: 10px;
     margin: 10px;
     font-size: medium;
     white-space: nowrap;
 }
 @media (max-width: 690px) {
     #editProfileButton, #followProfileButton {
+        /*padding-top: 2px;*/
         height: 30px;
     } 
 }
@@ -150,6 +164,13 @@ img.circular-icon {
     color: #4e7fcb;
 }
 
+.btn-overlay {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    background-color: transparent;
+}
+
 .btn-blue {
     border-radius: 25px; 
     background-color: #6398e9; 
@@ -172,29 +193,17 @@ img.circular-icon {
     color: white;
 }
 
-.loading {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 50em;
-    height: auto;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    overflow: auto;
-    z-index: 1000;
+
+#loading {
+    position: relative;
+    top: -20%;
 }
 
-/*
-.login {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 50em;
-    height: auto;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    overflow: auto;
-}*/
+#loadingIMG {
+    width: 250px;
+    height: 250px;
+    position: relative;
+}
 
 #submitButton, .loginButton {
     border-radius: 25px;
@@ -299,7 +308,7 @@ code {
     /*border: 5px solid darkgray;*/
 }
 
-#loginModal, #registerModal, #editModal {
+#loginModal, #registerModal, #editModal, #overlay {
     /*background-color: #c9c9c9;*/
     background: rgba(201, 201, 201, 0.5);
     backdrop-filter: blur(3px);

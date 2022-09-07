@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/User');
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 passport.use(new LocalStrategy({
     usernameField: "email",
@@ -26,12 +27,28 @@ passport.use(new LocalStrategy({
     }
   ));
 
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
   
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function (err, user) {
-      done(err, user);
-    });
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
   });
+});
+
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "http://localhost:5050/auth/google/chatbox",
+  userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo" // Google+ accounts deprecated
+},
+function(accessToken, refreshToken, profile, cb) {
+
+  User.findOrCreate({ googleId: profile.id}, function (err, user) {
+    console.log(user);
+    return cb(err, user);
+  });
+}
+));

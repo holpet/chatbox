@@ -1,4 +1,19 @@
 <!-- loading element -->
-<div class="loading" id="loading">
-    <img src="img/loading.gif" alt="Loading dots">
+<div class="text-center" id="loading">
+    <img id="loadingIMG" src="img/loading.gif" alt="Loading dots">
 </div>
+
+<!-- overlay element -->
+<div class="modal fade" id="overlay" tabindex="-1" aria-labelledby="overlayModal" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content" data-bs-dismiss="modal" style="background-color: transparent;">
+        <div class="modal-header" style="border: none;">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center d-flex align-items-center align-self-center">
+            <img src="" id="imagePreview" data-bs-dismiss="none" style="max-width: 100%; max-height: 100%">
+        </div>
+        <div class="modal-footer" style="border: none;"></div>
+      </div>
+    </div>
+  </div>

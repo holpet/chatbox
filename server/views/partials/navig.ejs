@@ -28,11 +28,24 @@
 
                 </ul>
 
-                <%#TODO: Create search functionality %>
-                <form action="/search" method="GET" class="d-flex">
-                    <input class="form-control" style="border-radius: 5px 0px 0px 5px" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex needs-validation" id="searchForm" action="/search" method="POST" onsubmit="return checkSearchInput()">
+                    <input class="form-control" id="searchInput" style="border-radius: 5px 0px 0px 5px" type="search" placeholder="Search" aria-label="Search" name="search" required>
                     <button class="btn btn-outline-secondary" id="searchButton" style="border-radius: 0px 5px 5px 0px" type="submit"><span class="material-icons material-icons-adjusted">search</span></button>
                 </form>
+                <script>
+                    function checkSearchInput() {
+                        var phrase = document.getElementById('searchInput').value;
+                        const regexForNonAlphaNum = new RegExp(/[^\p{L}\p{N}]+/ug);
+                        //var stripped = phrase.replace(/[^a-zA-Z0-9]/g, ''); // eng lang only
+                        var stripped = phrase.replace(regexForNonAlphaNum, ''); // all lang support
+                        if (stripped.length === 0) {
+                            document.getElementById('searchInput').value = '';
+                            return false;
+                        }
+                        else return true;
+                    };
+                </script>
+                
             </div>
         </div>
     </div>
