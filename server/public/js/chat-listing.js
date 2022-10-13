@@ -5,8 +5,7 @@
 
 async function listAllChats(filter = "", search = null) {
   blurAndLoad(true);
-  const allChats = document.querySelector(".allChats");
-  allChats.innerHTML = "";
+  $(".allChats").html("");
 
   try {
     // get a registered user profile; if not registered, get all profiles
@@ -14,15 +13,15 @@ async function listAllChats(filter = "", search = null) {
     // get chats to display
     const chats = await getChatsBy(filter, search);
 
-    // no search term
+    // no search term --> return, no chats
     if (search === null && chats.length === 0) {
       blurAndLoad(false);
       return;
     }
-    // no search match found
+    // no search match found --> append search results
     if (chats.length === 0) {
-      const divCard = createNoSearchMatch(search);
-      allChats.appendChild(divCard);
+      const result = createNoSearchMatch(search);
+      $(".allChats").append(result);
       blurAndLoad(false);
       return;
     }
@@ -30,38 +29,35 @@ async function listAllChats(filter = "", search = null) {
     const authData = await getAuthData();
 
     // CREATE LISTING OF ALL FOUND CHATS
-    const div = document.createElement("div");
-    div.id = "chats-container";
+    var div = $("<div id='chats-container'></div>");
     firstElem = true;
+
     chats.reverse();
     chats.forEach((chat) => {
       // create divs for sections
-      const divCard = document.createElement("div");
-      divCard.className = "card card-border border-top-0 action-highlight";
+
+      var divCard = $(
+        "<div class='card card-border border-top-0 action-highlight'></div>"
+      );
       if (firstElem) {
-        divCard.classList.remove("border-top-0");
+        divCard.removeClass("border-top-0");
         firstElem = false;
       }
-      const divRow = document.createElement("div");
-      divRow.className = "row g-0 justify-content-left";
-      const divCol1 = document.createElement("div");
-      divCol1.className = "col mx-auto icon-sidebar";
-      const divCol2 = document.createElement("div");
-      divCol2.className = "col";
-      const divCardBody = document.createElement("div");
-      divCardBody.className = "card-body pr-3 pl-1";
-      const divCardBodySpec = document.createElement("div");
-      divCardBodySpec.className =
-        "d-flex w-100 justify-content-between align-self-end";
-      const divCardBodySpecOpt = document.createElement("div");
-      divCardBodySpecOpt.className = "";
+      var divRow = $("<div class='row g-0 justify-content-left'></div>");
+      var divCol1 = $("<div class='ol mx-auto icon-sidebar'></div>");
+      var divCol2 = $("<div class='col'></div>");
+      var divCardBody = $("<div class='card-body pr-3 pl-1'></div>");
+      var divCardBodySpec = $(
+        "<div class='d-flex w-100 justify-content-between align-self-end'></div>"
+      );
+      var divCardBodySpecOpt = $("<div></div>");
 
       // get a registered user profile (if there is any)
       const profile = getProfile(chat.userID, profiles);
 
       // create icon
       const icon = createHTML_icon(profile);
-      divCol1.appendChild(icon);
+      divCol1.append(icon);
 
       // create name & date
       const header = createHTML_names(chat, profile);
@@ -69,19 +65,17 @@ async function listAllChats(filter = "", search = null) {
       // create delete
       if (
         authData.auth &&
-        authData.userID === (profile !== undefined ? profile.userID : null)
+        authData.userID === (!isEmpty(profile) ? profile.userID : null)
       ) {
-        const del = document.createElement("i");
-        del.className = "far fa-trash-alt me-2";
-        del.setAttribute("data-id", chat._id);
-        del.setAttribute("onclick", "deleteChat(this)");
-        divCardBodySpecOpt.appendChild(del);
+        const del = $("<i class='far fa-trash-alt me-2'></i>")
+          .attr("data-id", chat._id)
+          .attr("onclick", "deleteChat(this)");
+        divCardBodySpecOpt.append(del);
       }
       // add name & date & delete
-      divCardBodySpec.appendChild(header);
-      divCardBodySpecOpt.appendChild(small);
-      divCardBodySpec.appendChild(divCardBodySpecOpt);
-      divCardBody.appendChild(divCardBodySpec);
+      divCardBodySpecOpt.append(small);
+      divCardBodySpec.append(header, divCardBodySpecOpt);
+      divCardBody.append(divCardBodySpec);
 
       // create links for profile
       if (!isEmpty(profile)) {
@@ -94,8 +88,8 @@ async function listAllChats(filter = "", search = null) {
 
       // create message
       const content = createHTML_content(chat);
-      divCardBody.appendChild(content);
-      divCol2.appendChild(divCardBody);
+      divCardBody.append(content);
+      divCol2.append(divCardBody);
 
       // add images
       if (chat.img.length > 0) {
@@ -103,13 +97,11 @@ async function listAllChats(filter = "", search = null) {
         content.appendChild(divImg);
       }
 
-      divRow.appendChild(divCol1);
-      divRow.appendChild(divCol2);
-
-      divCard.appendChild(divRow);
-      div.appendChild(divCard);
+      divRow.append(divCol1, divCol2);
+      divCard.append(divRow);
+      div.append(divCard);
     });
-    allChats.appendChild(div);
+    $(".allChats").append(div);
     blurAndLoad(false);
   } catch (error) {
     console.log(error);
@@ -117,21 +109,15 @@ async function listAllChats(filter = "", search = null) {
 }
 
 function createNoSearchMatch(search) {
-  const divCard = document.createElement("div");
-  divCard.className = "card card-border";
-  const divCardBody = document.createElement("div");
-  divCardBody.className = "card-body p-3";
-  const h4 = document.createElement("h4");
-  h4.className = "card-title text-break text-center fw-bold";
-  const p = document.createElement("p");
-  p.className = "card-title text-break text-center";
-  h4.textContent = ' No results for "' + search + '".';
-  p.textContent = "Try searching for another.";
-
-  divCardBody.appendChild(h4);
-  divCardBody.appendChild(p);
-  divCard.appendChild(divCardBody);
-  return divCard;
+  var h = $("<h4 class='card-title text-break text-center fw-bold'></h4>").text(
+    "No results for " + search + "."
+  );
+  var p = $("<p class='card-title text-break text-center'></p>").text(
+    "Try searching for another."
+  );
+  var wrap = $("<div class='card-body p-3'></div>").append(h, p);
+  var container = $("<div class='card card-border'></div>").append(wrap);
+  return container;
 }
 
 function createHTML_img(chat, profile) {

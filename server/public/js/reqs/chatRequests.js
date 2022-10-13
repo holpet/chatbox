@@ -53,11 +53,42 @@ async function getAuthData() {
 async function deleteChat(elem) {
   const chatID = elem.getAttribute("data-id");
   try {
-    await fetch(API_URL + "chats/delete/" + chatID, {
+    await fetch(API_URL + "chats/" + chatID, {
       method: "DELETE",
     }).then((res) => res.json());
     window.location.reload();
   } catch (error) {
     console.log(error);
   }
+}
+
+async function postChat(formData) {
+  try {
+    fetch(API_URL + "chats", {
+      method: "POST",
+      body: formData,
+      credentials: "include",
+    }).then((response) => {
+      // error: too many requests
+      if (response.headers.status === 429) {
+        countdownTooManyRequests(10);
+      }
+    });
+  } catch (error) {
+    console.log("Chat could not be sent. ->", error);
+  }
+}
+
+/* POST CHAT - controls number of requests */
+function countdownTooManyRequests(seconds) {
+  countdownInterval = setInterval(() => {
+    if (seconds === 1) {
+      $("#submitButton").prop("disabled", false);
+      $("#submitButton").html("Send your chat");
+      clearInterval(countdownInterval);
+    } else {
+      $("#submitButton").prop("disabled", true);
+      $("#submitButton").html("Please wait " + seconds--);
+    }
+  }, 1000);
 }

@@ -1,10 +1,39 @@
+/* COLOR SCHEME */
+:root {
+  --main-bg-color: #e4e4e4;
+  --framing-color: #c9c9c9;
+
+  --idx-button-color: #88b0ec;
+  --idx-button-color-border: #b6b3b3;
+  --sidebar-bg-color: #9ec4ff;
+  --txt-dark-color: rgb(75, 75, 75);
+  --highlight-bg-color1: #f9f9f9;
+  --hightlight-bg-color1-hover: #fdfdfd;
+  --overlay-bg-color: rgba(201, 201, 201, 0.5);
+  --txt-code-color: #4776bd;
+
+  --main-button-bg-color: #6398e9;
+  --main-button-bg-color-hover: #7aa8ec;
+  --main-button-color-border: #4e7fcb;
+  --main-button-color-font: white;
+
+  --secondary-button-bg-color1: grey;
+  --secondary-button-bg-color2: #000000;
+  --secondary-button-bg-color2-hover: #3f3f3f;
+  --secondary-button-framing: rgb(110, 110, 110);
+  --secondary-button-framing-hover: rgb(146, 146, 146);
+
+  --warning-bg-color: #ad1f57;
+  --warning-bg-color-framing: #8d1344;
+}
+
 html,
 body {
   margin-left: auto;
   margin-right: auto;
   height: 100%;
   width: 100%;
-  background-color: #e4e4e4;
+  background-color: var(--main-bg-color);
 }
 
 /* INDEX demo user page */
@@ -17,20 +46,20 @@ body {
 }
 #anon-user-choose:hover,
 #reg-user-choose:hover {
-  background-color: #c9c9c9 !important;
+  background-color: var(--framing-color) !important;
 }
 .index-button {
-  background-color: #88b0ec;
+  background-color: var(--idx-button-color);
   display: block;
   font-weight: bold;
-  color: white;
+  color: var(--main-button-color-font);
   letter-spacing: 4px;
-  border-left: #b6b3b3 solid 2px;
-  border-right: #b6b3b3 solid 2px;
+  border-left: var(--idx-button-color-border) solid 2px;
+  border-right: var(--idx-button-color-border) solid 2px;
 }
 .index-button:hover {
-  background-color: #6398e9;
-  color: white;
+  background-color: var(--main-button-bg-color);
+  color: var(--main-button-color-font);
   letter-spacing: 4px;
 }
 
@@ -45,7 +74,7 @@ body {
   border-radius: 50%;
 }
 img.circular-icon {
-  border: #b6b3b3 solid 2px;
+  border: var(--idx-button-color-border) solid 2px;
 }
 
 .icon {
@@ -70,7 +99,7 @@ img.circular-icon {
   justify-content: center;
   -ms-flex: 0 0 108px;
   flex: 0 0 108px;
-  background-color: #9ec4ff;
+  background-color: var(--sidebar-bg-color);
 }
 @media (max-width: 690px) {
   .icon-sidebar {
@@ -85,7 +114,7 @@ img.circular-icon {
   width: 130px;
   height: 130px;
   top: -93px;
-  border: #6398e9 2px;
+  border: var(--main-button-bg-color) 2px;
   border-style: solid;
 }
 @media (max-width: 690px) {
@@ -97,7 +126,6 @@ img.circular-icon {
 }
 
 .icon-profile-sidebar {
-  /*background-color: #9ec4ff;*/
   height: 60px;
 }
 @media (max-width: 690px) {
@@ -137,51 +165,43 @@ img.circular-icon {
 #followProfileButton {
   border-radius: 25px;
   height: 40px;
-  /*padding-top: 7px;*/
   padding-left: 10px;
   padding-right: 10px;
   margin: 10px;
   font-size: medium;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
 }
 @media (max-width: 690px) {
   #editProfileButton,
   #followProfileButton {
-    /*padding-top: 2px;*/
     height: 30px;
   }
 }
 #editProfileButton:hover,
 #followProfileButton:hover {
-  background-color: grey;
+  background-color: var(--secondary-button-bg-color1);
 }
 
 .modal-title-colored {
-  background-color: #9ec4ff;
-  color: rgb(75, 75, 75);
-}
-
-/*TODO:*/
-.material-icons-adjusted {
-  vertical-align: middle;
-  line-height: 0;
-  position: relative;
-  top: -1px;
+  background-color: var(--sidebar-bg-color);
+  color: var(--txt-dark-color);
 }
 
 .btn-outline-secondary {
   background-color: transparent;
 }
 .btn-outline-secondary:hover {
-  background-color: grey;
+  background-color: var(--secondary-button-bg-color1);
 }
 
 .chat-link {
-  color: rgb(75, 75, 75);
+  color: var(--txt-dark-color);
   text-decoration: none;
 }
 .chat-link:hover {
-  color: #4e7fcb;
+  color: var(--main-button-color-border);
 }
 
 .btn-overlay {
@@ -191,27 +211,34 @@ img.circular-icon {
   background-color: transparent;
 }
 
+/* Navigation */
 .btn-blue {
   border-radius: 25px;
-  background-color: #6398e9;
-  border: 3px solid #4e7fcb;
-  color: white;
+  background-color: var(--main-button-bg-color);
+  border: 3px solid var(--main-button-color-border);
+  color: var(--main-button-color-font);
 }
 .btn-blue:hover {
-  background-color: #7aa8ec;
-  color: white;
+  background-color: var(--main-button-bg-color-hover);
+  color: var(--main-button-color-font);
 }
 
 .btn-grey {
   border-radius: 25px;
-  background-color: grey;
-  border: 3px solid rgb(110, 110, 110);
-  color: white;
+  background-color: var(--secondary-button-bg-color1);
+  border: 3px solid var(--secondary-button-framing);
+  color: var(--main-button-color-font);
 }
 .btn-grey:hover {
-  background-color: rgb(146, 146, 146);
-  color: white;
+  background-color: var(--secondary-button-framing-hover);
+  color: var(--main-button-color-font);
 }
+.navbar-nav {
+  --bs-scroll-height: 100px !important;
+  text-align: center !important;
+}
+
+/* Loading graphics */
 
 #loading {
   position: relative;
@@ -224,43 +251,42 @@ img.circular-icon {
   position: relative;
 }
 
+/* Page Buttons */
 #submitButton,
 .loginButton {
   border-radius: 25px;
-  background-color: #6398e9;
-  border: 3px solid #4e7fcb;
-  color: white;
+  background-color: var(--main-button-bg-color);
+  border: 3px solid var(--main-button-color-border);
+  color: var(--main-button-color-font);
   font-size: large;
 }
 
 #submitButton:hover,
 .loginButton:hover {
-  background-color: #7aa8ec;
-  border: 3px solid #4e7fcb;
-  color: white;
+  background-color: var(--main-button-bg-color-hover);
 }
 
 #submitButton[disabled] {
-  background-color: #ad1f57;
-  border: 3px solid #8d1344;
+  background-color: var(--warning-bg-color);
+  border: 3px solid var(--warning-bg-color-framing);
 }
 
 .regButton {
   border-radius: 25px;
-  background-color: #000000;
-  border: 3px solid #3f3f3f;
-  color: white;
+  background-color: var(--secondary-button-bg-color2);
+  border: 3px solid var(--secondary-button-bg-color2-hover);
+  color: var(--main-button-color-font);
   font-size: large;
 }
 
 .regButton:hover {
-  background-color: #3f3f3f;
-  border: 3px solid #000000;
-  color: white;
+  background-color: var(--secondary-button-bg-color2-hover);
+  border: 3px solid var(--secondary-button-bg-color2);
+  color: var(--main-button-color-font);
 }
 
 code {
-  color: #4776bd;
+  color: var(--txt-code-color);
   font-weight: bold;
 }
 
@@ -285,38 +311,38 @@ code {
 }
 
 .bg-blue {
-  background-color: #6398e9;
-}
-
-.bg-lightblue {
-  background-color: #7aa8ec;
-}
-
-.bg-lighterblue {
-  background-color: #9ec4ff;
+  background-color: var(--main-button-bg-color);
 }
 
 .blue-box {
-  color: #6398e9;
+  color: var(--main-button-bg-color);
+}
+
+.bg-lightblue {
+  background-color: var(--main-button-bg-color-hover);
+}
+
+.bg-lighterblue {
+  background-color: var(--sidebar-bg-color);
 }
 
 .grey-box {
-  color: grey;
+  color: var(--secondary-button-bg-color1);
 }
 
 .action-highlight:hover {
-  background-color: #f9f9f9;
+  background-color: var(--highlight-bg-color1);
 }
 
 .action-highlight2 {
-  background-color: #f9f9f9;
+  background-color: var(--highlight-bg-color1);
 }
 .action-highlight2:hover {
-  background-color: #fdfdfd;
+  background-color: var(--hightlight-bg-color1-hover);
 }
 
 .card-border {
-  border-color: #c9c9c9;
+  border-color: var(--framing-color) !important;
 }
 
 .spaced-title {
@@ -326,15 +352,13 @@ code {
 
 .allChats {
   padding: 15px;
-  /*border: 5px solid darkgray;*/
 }
 
 #loginModal,
 #registerModal,
 #editModal,
 #overlay {
-  /*background-color: #c9c9c9;*/
-  background: rgba(201, 201, 201, 0.5);
+  background: var(--overlay-bg-color);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
 }

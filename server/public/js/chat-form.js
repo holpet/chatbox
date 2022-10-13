@@ -20,39 +20,16 @@ function manageChatForm() {
     }
 
     // Add chat into a database
-    try {
-      fetch(API_URL + "chats", {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      })
-        .then((response) => {
-          // status OK
-          if (response.headers.status === response.headers.ok) {
-            //console.log('Chat validated.');
-          }
-          // error: too many requests
-          else if (response.headers.status === 429) {
-            countdownTooManyRequests(10);
-          }
-          // error missing name and/or message
-          else if (response.headers.status === 442) {
-            console.log("Missing name and/or content.");
-          }
-          //return response.json();
-        })
-        .then(() => {
-          listAllChats();
-          $("#preview").empty();
-        });
-    } catch (error) {
-      console.log("Chat could not be sent. ->", error);
-    }
+    postChat(formData).then(() => {
+      listAllChats();
+      $("#preview").empty();
+    });
     blurAndLoad(false);
   });
 }
 
 /* *****  HELPER FUNCTIONS ***** */
+// for rendered chat-form.ejs
 function readFiles(input) {
   validateFiles(input);
 

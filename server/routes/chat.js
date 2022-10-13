@@ -53,7 +53,7 @@ router.get("/:userid", async (req, res) => {
   }
 });
 
-router.delete("/delete/:chatid", async (req, res) => {
+router.delete("/:chatid", async (req, res) => {
   try {
     const deletedFile = await Chat.findOneAndDelete({ _id: req.params.chatid });
     if (deletedFile) res.json({ isDeleted: true });

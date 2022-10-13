@@ -27,19 +27,6 @@ function blurAndLoad(isLoading) {
   }
 }
 
-function countdownTooManyRequests(seconds) {
-  countdownInterval = setInterval(() => {
-    if (seconds === 1) {
-      $("#submitButton").prop("disabled", false);
-      $("#submitButton").html("Send your chat");
-      clearInterval(countdownInterval);
-    } else {
-      $("#submitButton").prop("disabled", true);
-      $("#submitButton").html("Please wait " + seconds--);
-    }
-  }, 1000);
-}
-
 // profile edit helpers
 
 function displayDesc(selector) {
