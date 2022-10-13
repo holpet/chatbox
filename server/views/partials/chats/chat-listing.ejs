@@ -1,15 +1,12 @@
 <div class="col-lg-7 col-md-8 col-xl-6 mx-auto">
+  <%- include('../loading.ejs') %>
 
-    <%- include('loading.ejs')  %> 
-
-    <!-- show saved chat messages -->
-    <div class="allChats container"></div>
-
-    <!-- opt. TODO: modal with messages -->
-
+  <!-- show saved chat messages -->
+  <div class="allChats container"></div>
 </div>
 
 <div class="px-4 py-3 my-3"></div>
 
+<script src="js/reqs/chatRequests.js"></script>
 <script src="js/helpers.js"></script>
 <script src="js/chat-listing.js"></script>

@@ -1,9 +1,4 @@
-<%- include ('./partials/navig.ejs') %> 
-
-<%- include('./partials/logo-title.ejs')  %> 
-
-<%- include('./partials/chat-form-and-listing.ejs')  %> 
-
-<% if (!authenticated) { %>
-    <%- include('./partials/login-register/login-and-register.ejs')  %>
-<% } %> 
+<%- include ('./partials/navig.ejs') %> <%- include('./partials/logo-title.ejs')
+%> <%- include('./partials/chats/chat-form-and-listing.ejs') %> <% if
+(!authenticated) { %> <%-
+include('./partials/login-register/login-and-register.ejs') %> <% } %>

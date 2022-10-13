@@ -1,14 +1,8 @@
-<%- include ('./partials/navig.ejs') %> 
-
-<%- include('./partials/title.ejs')  %> 
-
-<%- include('./partials/profile-desc.ejs')  %>
-
-<% if (exists) { %> 
-<%- include('./partials/listing.ejs')  %>
-<script>listAllChats('<%= profile.userID %>', null);</script>
-<% } %> 
-
-<% if (!authenticated) { %>
-    <%- include('./partials/login-register/login-and-register.ejs')  %>
-<% } %> 
+<%- include ('./partials/navig.ejs') %> <%- include('./partials/title.ejs') %>
+<%- include('./partials/profile/profile-desc.ejs') %> <% if (exists) { %> <%-
+include('./partials/chats/chat-listing.ejs') %>
+<script>
+  listAllChats("<%= profile.userID %>");
+</script>
+<% } %> <% if (!authenticated) { %> <%-
+include('./partials/login-register/login-and-register.ejs') %> <% } %>

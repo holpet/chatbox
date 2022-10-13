@@ -1,14 +1,10 @@
-<%- include ('./partials/navig.ejs') %> 
-
-<%- include('./partials/logo-title.ejs')  %> 
-
-<%- include('./partials/listing.ejs')  %>
+<%- include ('./partials/navig.ejs') %> <%- include('./partials/logo-title.ejs')
+%> <%- include('./partials/chats/chat-listing.ejs') %>
 <script>
-var filter = ''; // search among all chats
-var phrase = '<%= search %>'; // search phrase
-listAllChats(filter, phrase);
+  var filter = ""; // search among all chats
+  var phrase = "<%= search %>"; // search phrase
+  listAllChats(filter, phrase);
 </script>
 
-<% if (!authenticated) { %>
-<%- include('./partials/login-register/login-and-register.ejs')  %>
-<% } %> 
+<% if (!authenticated) { %> <%-
+include('./partials/login-register/login-and-register.ejs') %> <% } %>
