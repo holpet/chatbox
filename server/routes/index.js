@@ -3,6 +3,9 @@ const router = require("express").Router();
 /* db */
 const Profile = require("../config/models/Profile");
 
+/* other */
+const getRandomUser = require("../lib/demoUserUtils");
+
 router.get("/", (req, res) => {
   res.render("index");
 });
@@ -31,6 +34,11 @@ router.get("/get-auth-data", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+router.get("/get-random-user", async (req, res) => {
+  const user = getRandomUser();
+  res.json(user);
 });
 
 module.exports = router;
