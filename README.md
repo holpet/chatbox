@@ -1,2 +1,2 @@
 # catbox
- Simple twitter clone application.
+Cat themed messaging app inspired by twitter UI.
