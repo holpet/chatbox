@@ -15,7 +15,7 @@ router.post("/", rateLimiter(10, 10), upload.any("files"), async (req, res) => {
     try {
       const chat = await Chat.create({
         name: messageUtils.structureContent(req.body.name.toString(), false),
-        userID: req.isAuthenticated() ? req.user._id : "",
+        userID: req.isAuthenticated() ? req.user._id : null,
         content: messageUtils.structureContent(
           req.body.content.toString(),
           true
