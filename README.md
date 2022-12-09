@@ -6,6 +6,8 @@ This is a cat themed messaging app inspired by the twitter UI.
 
 Available demo users are: 1. a (logged in) **registered user** and 2. an **anonymous user**. No need to actually register to see full functionality.
 
+#### A/N: Due to server limitations, it may take up to 1 min to load the site initially. Thank you for your patience.
+
 #### Functionality & Properties:
 
 - Fully responsive (mobile <-> desktop)

@@ -10,6 +10,7 @@
           src="uploads/<%= profile.bg %>"
           class="card-img-top bg-img"
           alt="Cat icon"
+          onerror="$(this).attr('src', 'uploads/___default/bg/default_bg.jpg')"
         />
         <% } %> <% if (exists && profile.bg === "") { %>
         <img
@@ -35,6 +36,7 @@
             src="uploads/<%= profile.icon %>"
             class="img-fluid rounded-circle m-2 icon-profile"
             alt="Cat icon"
+            onerror="$(this).attr('src', 'uploads/___default/icon/default_icon.png')"
           />
           <% } %> <% if (exists && profile.icon === "") { %>
           <img

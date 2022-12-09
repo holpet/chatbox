@@ -24,10 +24,11 @@ router.post("/", rateLimiter(10, 10), upload.any("files"), async (req, res) => {
         created: new Date(),
       });
       await chat.save().then((chat) => {
-        res.json(chat);
+        res.status(200).json(chat);
       });
     } catch (error) {
       console.log(error.message);
+      res.status(error.message.error.status);
     }
   } else {
     res.status(442).json({ error: "Missing name and/or message." });

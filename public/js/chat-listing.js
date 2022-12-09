@@ -129,7 +129,9 @@ function createHTML_img(chat, profile) {
   while (i < chat.img.length) {
     const divImgCol = document.createElement("div");
     divImgCol.className = "col p-1";
-    const img = document.createElement("img");
+
+    const img = new Image();
+    const defSrc = "uploads/___default/chat/default_chat" + i + ".jpg";
     const src = !isEmpty(profile)
       ? "uploads/" +
         profile.username +
@@ -139,6 +141,7 @@ function createHTML_img(chat, profile) {
         chat.img[i++].filename
       : "uploads/___misc/" + chat.img[i++].filename;
     img.src = src;
+    img.onerror = () => (img.src = defSrc);
     img.className =
       chat.img.length === 1
         ? "img-fluid img-thumbnail img-preview-one m-1 icon-link"
@@ -169,13 +172,10 @@ function overlayPreview(img) {
 }
 
 function createHTML_icon(profile) {
-  const icon = document.createElement("img");
+  const icon = new Image();
   const defSrc = "uploads/___default/icon/default_icon.png";
-  icon.src = !isEmpty(profile)
-    ? profile.icon !== ""
-      ? "uploads/" + profile.icon
-      : defSrc
-    : defSrc;
+  icon.src = !isEmpty(profile) ? "uploads/" + profile.icon : "";
+  icon.onerror = () => (icon.src = defSrc);
   icon.className = "img-fluid rounded-circle m-2 icon";
   icon.alt = "User icon image";
   return icon;

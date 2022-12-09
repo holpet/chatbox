@@ -19,10 +19,11 @@
           <% } %> <% if (authenticated) { %> <% const prof = (profile.icon ===
           '') ? def : profile.icon ; %>
           <img
-            src="uploads/<%= prof %>"
-            class="img-fluid rounded-circle my-2 icon icon-link"
+            src="uploads<%= prof %>"
+            class="img-fluid rounded-circle my-2 icon icon-link chatFormIcon"
             alt="Cat icon"
             onclick="window.open('/<%= profile.username %>', '_self')"
+            onerror="$(this).attr('src', 'uploads/<%= def %>')"
           />
           <% } %>
         </div>

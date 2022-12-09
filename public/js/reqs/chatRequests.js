@@ -64,16 +64,16 @@ async function deleteChat(elem) {
 
 async function postChat(formData) {
   try {
-    fetch(API_URL + "chats", {
+    const data = await fetch(API_URL + "chats", {
       method: "POST",
       body: formData,
       credentials: "include",
-    }).then((response) => {
-      // error: too many requests
-      if (response.headers.status === 429) {
-        countdownTooManyRequests(10);
-      }
     });
+    const jsonData = await data.json();
+    // error: too many requests
+    if (jsonData.status === 429) {
+      countdownTooManyRequests(10);
+    }
   } catch (error) {
     console.log("Chat could not be sent. ->", error);
   }
