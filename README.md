@@ -14,7 +14,7 @@ Available demo users are: 1. a (logged in) **registered user** and 2. an **anony
 - Server-side responses in **Node.js** rendered to client using **EJS template views**
 - Authentication with **passport-local**; password hashing with **bcrypt**
 - All data persisted in a **MongoDB** database
-- Option to upload images together with messages **multer**
+- Option to upload images together with messages with **multer**
 - Option of editing user profile - icon, background, description etc., follow/unfollow other users
 - Search functionality and filtering (handled on server)
 
