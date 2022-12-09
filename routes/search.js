@@ -24,19 +24,9 @@ router.post("/search", async (req, res) => {
 
 router.get("/search/:phrase", async (req, res) => {
   try {
-    /* // simple search
-    let data = await Chat.find({
-      $or: [
-        { name: { $regex: req.params.phrase, $options: "i" } },
-        { content: { $regex: req.params.phrase, $options: "i" } },
-      ],
-    });
-    */
-
     /* expanded search: returns chat by priority (closest to match) */
     const chats = await Chat.find({});
     const searched = req.params.phrase;
-    console.log("searched phrase: ", searched);
 
     // 0 - no matches
     var partial_match = []; // 1

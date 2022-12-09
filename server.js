@@ -77,12 +77,13 @@ app.use(profileRoute);
 
 /* Start server */
 const start = function () {
+  const port = process.env.PORT ?? 5050;
   try {
-    app.listen(process.env.PORT, () => {
-      console.log(`Running server at localhost: ${process.env.PORT}`);
+    app.listen(port, () => {
+      console.log(`Running server at port: ${port}`);
     });
   } catch (error) {
-    throw boomify(error);
+    console.log(error);
   }
 };
 start();
