@@ -19,7 +19,7 @@ Available demo users are: 1. a (logged in) **registered user** and 2. an **anony
 ### Visual:
 
 ![demo1](/public/img/demo/demo1.jpg)
-![demo2](/public/img/demo/demo1.jpg)
+![demo2](/public/img/demo/demo2.jpg)
 
 ## How to install & run
 
