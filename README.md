@@ -1,2 +1,29 @@
-# Chatbox
-Cat themed messaging app inspired by twitter UI.
+# Chatbox (messaging app) using Node.js
+This is a cat themed messaging app inspired by the twitter UI.
+
+### Demo: [https://chatbox-app.onrender.com/](https://chatbox-app.onrender.com/)
+
+Available demo users are: 1. a (logged in) **registered user** and 2. an **anonymous user**. No need to actually register to see full functionality. 
+
+#### Functionality & Properties:
+- Fully responsive (mobile <-> desktop)
+- Server-side responses in **Node.js** rendered to client using **EJS template views**
+- Authentication with **passport-local**; password hashing with **bcrypt**
+- All data persisted in a **MongoDB** database
+- Option to upload images together with messages **multer**
+- Option of editing user profile - icon, background, description etc., follow/unfollow other users
+- Search functionality and filtering (handled on server)
+
+## How to install & run
+
+To run in a **development** mode:
+
+```bash
+npm install
+npm run start
+# or
+yarn install
+yarn start
+```
+
+Open [http://localhost:5050](http://localhost:5050) with your browser to see the result.
