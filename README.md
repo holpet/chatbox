@@ -29,10 +29,10 @@ To run in a **development** mode:
 
 ```bash
 npm install
-npm run start
+npm run dev
 # or
 yarn install
-yarn start
+yarn dev
 ```
 
 Open [http://localhost:5050](http://localhost:5050) with your browser to see the result.
