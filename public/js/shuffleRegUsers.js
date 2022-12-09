@@ -47,7 +47,11 @@ async function loginAndContinue(login, logout, user) {
         .fadeIn(200)
         .removeClass("fa-square")
         .addClass("fa-check-square");
+      $(".index-button").prop("disabled", true);
       await loginUser(user);
+      setTimeout(() => {
+        $(".index-button").prop("disabled", false);
+      }, 500);
       $("#reg-user-continue").attr("href", "/" + user.username.toLowerCase());
     } else {
       $("#reg-check")

@@ -51,6 +51,7 @@ body {
 .index-button {
   background-color: var(--idx-button-color);
   display: block;
+  width: 100%;
   font-weight: bold;
   color: var(--main-button-color-font);
   letter-spacing: 4px;

@@ -23,6 +23,7 @@ function manageChatForm() {
     postChat(formData).then(() => {
       listAllChats();
       $("#preview").empty();
+      $("#formFileImg").val("");
     });
     blurAndLoad(false);
   });
