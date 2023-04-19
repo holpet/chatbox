@@ -16,7 +16,7 @@ Available demo users are: 1. a (logged in) **registered user** and 2. an **anony
 - All data persisted in a **MongoDB** database
 - Option to upload images together with messages with **multer**
 - Option of editing user profile - icon, background, description etc., follow/unfollow other users
-- Search functionality and filtering (handled on server)
+- Search functionality and filtering
 
 ### Visual:
 
